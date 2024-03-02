@@ -1,5 +1,5 @@
-import { TUser } from './TUser';
 import { ERoles } from 'src/enums';
+import { TUser } from './TUser';
 
 export type TUserProps = {
     user: TUser;

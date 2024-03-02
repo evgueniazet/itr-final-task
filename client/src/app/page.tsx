@@ -1,3 +1,5 @@
-export default function Home() {
-    return <main></main>;
-}
+import React from 'react';
+
+export const Home = () => {
+    return <main />;
+};

@@ -1,6 +1,6 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { createTheme, ThemeProvider as ThemeProviderBase } from '@mui/material/styles';
 
 const theme = createTheme({

@@ -1,6 +1,6 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Container, useTheme } from '@mui/material';
 import { Header } from 'src/components/Header';
 

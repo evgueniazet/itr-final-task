@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Typography, Box, useTheme } from '@mui/material';
+import React, { useState } from 'react';
+import { Typography, Box } from '@mui/material';
 import { UserRow } from 'src/components/UserRow';
 import { TUser } from 'src/types/TUser';
 import { ERoles } from 'src/enums';
