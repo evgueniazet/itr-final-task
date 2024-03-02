@@ -33,7 +33,6 @@ const USERS_MOCK: TUser[] = [
 const Users = () => {
   const [users, setUsers] = useState<TUser[]>(USERS_MOCK);
 
-
   const toggleBlock = (user: TUser) => {
     const newUser = users.map((item) =>
       item.id === user.id ? { ...item, blocked: !user.blocked } : item
@@ -55,7 +54,7 @@ const Users = () => {
       <Typography
         variant="h4"
         gutterBottom
-        style={{ textAlign: "center", color: "#000" }}
+        sx={{ textAlign: "center", color: "#000", mt: "20px" }}
       >
         Users
       </Typography>

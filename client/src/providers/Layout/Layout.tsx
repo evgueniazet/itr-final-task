@@ -2,6 +2,7 @@
 
 import { PropsWithChildren } from "react";
 import { Container, useTheme } from "@mui/material";
+import { Header } from "src/components/Header";
 
 export const Layout = ({ children }: PropsWithChildren) => {
   const theme = useTheme();
@@ -15,7 +16,10 @@ export const Layout = ({ children }: PropsWithChildren) => {
         backgroundColor: theme.palette.background.default,
       }}
     >
-      <Container maxWidth="xl">{children}</Container>
+      <Container maxWidth="xl">
+        <Header />
+        {children}
+      </Container>
     </Container>
   );
 };
