@@ -1,4 +1,4 @@
 export enum EUserBlockStatuses {
-    BLOCK = "block",
-    UNBLOCK = "unblock",
-  }
+    BLOCK = 'block',
+    UNBLOCK = 'unblock',
+}
