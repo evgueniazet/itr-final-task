@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Typography, Box } from '@mui/material';
-import { UserRow } from 'src/components/UserRow';
-import { TUser } from 'src/types/TUser';
-import { ERoles } from 'src/enums';
+import { UserRow } from 'components/UserRow';
+import { TUser } from 'types/TUser';
+import { ERoles } from 'enums/index';
 
 const USERS_MOCK: TUser[] = [
     {

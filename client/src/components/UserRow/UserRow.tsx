@@ -1,7 +1,6 @@
-import React from 'react';
 import { Box, Button, Select, MenuItem, Typography, useTheme } from '@mui/material';
-import { TUserProps } from 'src/types/TUserProps';
-import { ERoles, EUserBlockStatuses } from 'src/enums';
+import { TUserProps } from 'types/TUserProps';
+import { ERoles, EUserBlockStatuses } from 'enums/index';
 
 export const UserRow = ({ user, onRoleChange, onBlockToggle }: TUserProps) => {
     const theme = useTheme();

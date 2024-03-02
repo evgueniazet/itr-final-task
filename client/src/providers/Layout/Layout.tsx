@@ -1,8 +1,8 @@
 'use client';
 
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { Container, useTheme } from '@mui/material';
-import { Header } from 'src/components/Header';
+import { Header } from 'components/Header';
 
 export const Layout = ({ children }: PropsWithChildren) => {
     const theme = useTheme();

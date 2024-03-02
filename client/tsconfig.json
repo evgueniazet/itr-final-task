@@ -1,26 +1,44 @@
 {
+    "include": ["**/*.ts", "**/*.tsx", "src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["node_modules", "public"],
     "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "enums/*": ["src/enums/*"],
+            "providers/*": ["src/providers/*"],
+            "types/*": ["src/types/*"],
+            "components/*": ["src/components/*"],
+            
+        },
+        "types": ["node"],
+        "target": "esnext",
+        "useDefineForClassFields": true,
         "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "allowJs": false,
+        "checkJs": false,
+        "outDir": "public",
+        "declaration": false,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "noEmitHelpers": true,
+        "jsx": "react-jsx",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "skipLibCheck": true,
         "strict": true,
-        "noEmit": true,
-        "esModuleInterop": true,
+        "noFallthroughCasesInSwitch": true,
         "module": "esnext",
-        "moduleResolution": "bundler",
+        "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "jsx": "preserve",
-        "incremental": true,
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ],
-        "paths": {
-            "src/*": ["./src/*"]
-        }
-    },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-    "exclude": ["node_modules"]
+        "noEmit": true,
+        "noEmitOnError": true,
+        "noUnusedLocals": true,
+        "pretty": true,
+        "removeComments": true,
+        "strictNullChecks": false,
+        "sourceMap": true
+    }
 }
