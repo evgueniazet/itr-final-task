@@ -1,22 +1,27 @@
 import React from 'react';
 import { AppBar, Toolbar, Button, useTheme } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 export const Header: React.FC = () => {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const theme = useTheme();
+    const router = useRouter();
 
     const handleLogin = () => {
+        router.push('/signin');
         setIsLoggedIn(true);
     };
 
-    const handleSignUp = () => {};
+    const handleSignUp = () => {
+        router.push('/signup');
+    };
 
     const handleLogout = () => {
         setIsLoggedIn(false);
     };
 
     return (
-        <AppBar position="static" sx={{ flexGrow: 1, backgroundColor: theme.palette.primary.dark }}>
+        <AppBar position="sticky" sx={{ flexGrow: 1, backgroundColor: theme.palette.primary.dark }}>
             <Toolbar>
                 {isLoggedIn ? (
                     <Button color="inherit" onClick={handleLogout}>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Typography, Box, CircularProgress, Backdrop } from '@mui/material';
+import { Typography, Box, CircularProgress, Backdrop, useTheme } from '@mui/material';
 import { UserRow } from 'components/UserRow';
 import { TUser } from 'types/TUser';
 import { ERoles } from 'enums/index';
@@ -30,9 +30,10 @@ const USERS_MOCK: TUser[] = [
     },
 ];
 
-const Users = () => {
+export const Users = () => {
     const [users, setUsers] = useState<TUser[]>(USERS_MOCK);
     const [showLoader, setShowLoader] = useState(false);
+    const theme = useTheme();
 
     const toggleBlock = (user: TUser) => {
         const newUser = users.map((item) =>
@@ -60,7 +61,7 @@ const Users = () => {
             <Typography
                 variant="h4"
                 gutterBottom
-                sx={{ textAlign: 'center', color: '#000', mt: '20px' }}
+                sx={{ textAlign: 'center', color: theme.palette.text.primary, mt: '20px' }}
             >
                 Users
             </Typography>
