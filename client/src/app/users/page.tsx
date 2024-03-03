@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, CircularProgress, Backdrop } from '@mui/material';
 import { UserRow } from 'components/UserRow';
 import { TUser } from 'types/TUser';
 import { ERoles } from 'enums/index';
@@ -32,19 +32,27 @@ const USERS_MOCK: TUser[] = [
 
 const Users = () => {
     const [users, setUsers] = useState<TUser[]>(USERS_MOCK);
+    const [showLoader, setShowLoader] = useState(false);
 
     const toggleBlock = (user: TUser) => {
         const newUser = users.map((item) =>
             item.id === user.id ? { ...item, blocked: !user.blocked } : item,
         );
-
         setUsers(newUser);
+        simulateServerRequest();
     };
 
     const handleChangeRole = (user: TUser, role: ERoles) => {
+        setShowLoader(true);
         const newUsers = users.map((item) => (item.id === user.id ? { ...user, role } : item));
-
         setUsers(newUsers);
+        simulateServerRequest();
+    };
+
+    const simulateServerRequest = () => {
+        setTimeout(() => {
+            setShowLoader(false);
+        }, 5000);
     };
 
     return (
@@ -66,6 +74,9 @@ const Users = () => {
                     />
                 ))}
             </Box>
+            <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open={showLoader}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </>
     );
 };
