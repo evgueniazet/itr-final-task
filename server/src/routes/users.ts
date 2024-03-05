@@ -14,4 +14,30 @@ router.get(routes.allUsers, async (req, res) => {
     res.json(usersList);
 });
 
+router.post(routes.updateUserRole, async (req, res) => {
+    const { userId, newRole } = req.body;
+    const user = await model.users.findByPk(userId);
+
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+
+    await user.update({ role: newRole });
+
+    res.json({ message: 'User role updated successfully' });
+});
+
+router.post(routes.updateUserBlockStatus, async (req, res) => {
+    const { userId, isBlocked } = req.body;
+    const user = await model.users.findByPk(userId);
+
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+
+    await user.update({ isBlocked });
+
+    res.json({ message: 'User block status updated successfully' });
+});
+
 export { router };
