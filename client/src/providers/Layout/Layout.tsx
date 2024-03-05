@@ -14,12 +14,11 @@ export const Layout = ({ children }: PropsWithChildren) => {
                 height: '100vh',
                 width: '100vw',
                 backgroundColor: theme.palette.background.default,
+                p: '0!important',
             }}
         >
-            <Container maxWidth="xl">
-                <Header />
-                {children}
-            </Container>
+            <Header />
+            <Container maxWidth="xl">{children}</Container>
         </Container>
     );
 };

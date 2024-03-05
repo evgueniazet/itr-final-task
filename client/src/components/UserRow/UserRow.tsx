@@ -8,13 +8,14 @@ export const UserRow = ({ user, onRoleChange, onBlockToggle }: TUserProps) => {
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', p: 1 }}>
             <Typography variant="h6" sx={{ flex: 1, color: theme.palette.text.primary }}>
-                ID: {user.id}
+                {user.id}
+            </Typography>
+            <Typography sx={{ flex: 1, color: theme.palette.text.primary }}>{user.name}</Typography>
+            <Typography sx={{ flex: 1, color: theme.palette.text.primary }}>
+                {user.surname}
             </Typography>
             <Typography sx={{ flex: 1, color: theme.palette.text.primary }}>
-                Name: {user.name}
-            </Typography>
-            <Typography sx={{ flex: 1, color: theme.palette.text.primary }}>
-                Email: {user.email}
+                {user.email}
             </Typography>
             <Select
                 value={user.role}
@@ -25,7 +26,7 @@ export const UserRow = ({ user, onRoleChange, onBlockToggle }: TUserProps) => {
                 <MenuItem value={ERoles.USER}>User</MenuItem>
             </Select>
             <Button onClick={() => onBlockToggle(user)} sx={{ flex: 1 }}>
-                {user.blocked ? EUserBlockStatuses.UNBLOCK : EUserBlockStatuses.BLOCK}
+                {user.isBlocked ? EUserBlockStatuses.UNBLOCK : EUserBlockStatuses.BLOCK}
             </Button>
         </Box>
     );

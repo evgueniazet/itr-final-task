@@ -6,23 +6,18 @@ export default (sequelize: any, DataTypes: any) => {
         surname: {
             type: DataTypes.STRING,
         },
-        code: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
         role: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        isBlocked: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
     });
 
     return users;
