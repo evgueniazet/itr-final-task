@@ -1,11 +1,25 @@
 import React from 'react';
-import { AppBar, Toolbar, Button, useTheme } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import {
+    AppBar,
+    Toolbar,
+    Button,
+    useTheme,
+    Select,
+    MenuItem,
+    SelectChangeEvent,
+} from '@mui/material';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { ELanguages } from 'enums/ELanguages';
 
 export const Header: React.FC = () => {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const theme = useTheme();
     const router = useRouter();
+    const pathname = usePathname();
+    const query = useSearchParams();
+
+    const match = pathname.match(/^\/(en|ru)(\/|$)/);
+    const language = match ? match[1] : '';
 
     const handleLogin = () => {
         router.push('/signin');
@@ -18,6 +32,13 @@ export const Header: React.FC = () => {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
+    };
+
+    const handleChangeLanguage = (event: SelectChangeEvent<string>) => {
+        const selectedLanguage = event.target.value as ELanguages;
+        const newURL = `${pathname.replace(/^\/(en|ru)/, `/${selectedLanguage}`)}?${query}`;
+
+        router.push(newURL);
     };
 
     return (
@@ -37,6 +58,15 @@ export const Header: React.FC = () => {
                         </Button>
                     </>
                 )}
+                <Select
+                    value={language}
+                    onChange={handleChangeLanguage}
+                    variant="outlined"
+                    sx={{ ml: 2 }}
+                >
+                    <MenuItem value={ELanguages.ENGLISH}>English</MenuItem>
+                    <MenuItem value={ELanguages.RUSSIAN}>Русский</MenuItem>
+                </Select>
             </Toolbar>
         </AppBar>
     );
