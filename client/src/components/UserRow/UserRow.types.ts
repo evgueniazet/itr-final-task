@@ -1,8 +1,8 @@
 import { ERoles } from 'enums/index';
-import { TUser } from './TUser';
+import { TUser } from '../../types/TUser';
 
-export type TUserProps = {
+export type TUserRowProps = {
     user: TUser;
     onRoleChange: (user: TUser, role: ERoles) => void;
-    onBlockToggle: (user: TUser) => void;
+    onUserBlock: (user: TUser) => void;
 };

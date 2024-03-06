@@ -2,6 +2,7 @@ import express from 'express';
 import model from 'models';
 import { routes } from '../constants/routes';
 import { IUser, IUserItemModel } from '../interfaces';
+import { EErrorMessages } from 'enums';
 
 const router = express.Router();
 
@@ -19,12 +20,12 @@ router.post(routes.updateUserRole, async (req, res) => {
     const user = await model.users.findByPk(userId);
 
     if (!user) {
-        return res.status(404).json({ error: 'User not found' });
+        return res.status(500).json({ error: { message: EErrorMessages.USER_NOT_FOUND } });
     }
 
     await user.update({ role: newRole });
 
-    res.json({ message: 'User role updated successfully' });
+    res.status(200).json(user);
 });
 
 router.post(routes.updateUserBlockStatus, async (req, res) => {
@@ -32,12 +33,12 @@ router.post(routes.updateUserBlockStatus, async (req, res) => {
     const user = await model.users.findByPk(userId);
 
     if (!user) {
-        return res.status(404).json({ error: 'User not found' });
+        return res.status(500).json({ error: { message: EErrorMessages.USER_NOT_FOUND } });
     }
 
     await user.update({ isBlocked });
 
-    res.json({ message: 'User block status updated successfully' });
+    res.status(200).json(user);
 });
 
 export { router };

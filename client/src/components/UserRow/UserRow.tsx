@@ -1,8 +1,8 @@
 import { Box, Button, Select, MenuItem, Typography, useTheme } from '@mui/material';
-import { TUserProps } from 'types/TUserProps';
+import { TUserRowProps } from './UserRow.types';
 import { ERoles, EUserBlockStatuses } from 'enums/index';
 
-export const UserRow = ({ user, onRoleChange, onBlockToggle }: TUserProps) => {
+export const UserRow = ({ user, onRoleChange, onUserBlock }: TUserRowProps) => {
     const theme = useTheme();
 
     return (
@@ -25,7 +25,7 @@ export const UserRow = ({ user, onRoleChange, onBlockToggle }: TUserProps) => {
                 <MenuItem value={ERoles.ADMIN}>Admin</MenuItem>
                 <MenuItem value={ERoles.USER}>User</MenuItem>
             </Select>
-            <Button onClick={() => onBlockToggle(user)} sx={{ flex: 1 }}>
+            <Button onClick={() => onUserBlock(user)} sx={{ flex: 1 }}>
                 {user.isBlocked ? EUserBlockStatuses.UNBLOCK : EUserBlockStatuses.BLOCK}
             </Button>
         </Box>
