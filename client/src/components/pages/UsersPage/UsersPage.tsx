@@ -11,7 +11,7 @@ const COLUMN_TITLES = ['ID', 'Name', 'Surname', 'Email', 'Role', 'Block'];
 export const UsersPage = () => {
     const theme = useTheme();
     const t = useTranslations('Index');
-    const { users, showLoader, handleUserBlock, handleChangeRole } = useGetUsersData();
+    const { users, showLoader, handleUserBlock, handleChangeRole, handleUserDelete } = useGetUsersData();  
 
     return (
         <>
@@ -42,6 +42,7 @@ export const UsersPage = () => {
                     user={user}
                     onRoleChange={handleChangeRole}
                     onUserBlock={() => handleUserBlock(user, users)}
+                    onUserDelete={() => handleUserDelete(user)}
                 />
             ))}
             <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open={showLoader}>

@@ -1,8 +1,9 @@
 import { Box, Button, Select, MenuItem, Typography, useTheme } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { TUserRowProps } from './UserRow.types';
 import { ERoles, EUserBlockStatuses } from 'enums/index';
 
-export const UserRow = ({ user, onRoleChange, onUserBlock }: TUserRowProps) => {
+export const UserRow = ({ user, onRoleChange, onUserBlock, onUserDelete }: TUserRowProps) => {
     const theme = useTheme();
 
     return (
@@ -28,6 +29,7 @@ export const UserRow = ({ user, onRoleChange, onUserBlock }: TUserRowProps) => {
             <Button onClick={() => onUserBlock(user)} sx={{ flex: 1 }}>
                 {user.isBlocked ? EUserBlockStatuses.UNBLOCK : EUserBlockStatuses.BLOCK}
             </Button>
+            <DeleteIcon onClick={() => {onUserDelete(user)}} sx={{color: theme.palette.text.secondary}}/>
         </Box>
     );
 };

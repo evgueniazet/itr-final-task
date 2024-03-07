@@ -9,7 +9,7 @@ export const useGetUsersData = () => {
 
     useEffect(() => {
         setShowLoader(true);
-        
+
         axios
             .get('http://localhost:3001/users/all-users')
             .then((response) => {
@@ -69,5 +69,24 @@ export const useGetUsersData = () => {
             });
     };
 
-    return { users, showLoader, handleUserBlock, handleChangeRole };
+    const handleUserDelete = (userIdToDelete: TUser) => {
+        setShowLoader(true);
+
+        axios
+            .post('http://localhost:3001/users/delete-user', {
+                userId: userIdToDelete.id,
+            })
+            .then(() => {
+                const updatedUsers = users.filter((user) => user.id !== userIdToDelete.id);
+                setUsers(updatedUsers);
+            })
+            .catch((error) => {
+                console.error('Error deleting user:', error);
+            })
+            .finally(() => {
+                setShowLoader(false);
+            });
+    };
+
+    return { users, showLoader, handleUserBlock, handleChangeRole, handleUserDelete };
 };

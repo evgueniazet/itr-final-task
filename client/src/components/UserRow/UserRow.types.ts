@@ -5,4 +5,5 @@ export type TUserRowProps = {
     user: TUser;
     onRoleChange: (user: TUser, role: ERoles) => void;
     onUserBlock: (user: TUser) => void;
+    onUserDelete: (user: TUser) => void;
 };

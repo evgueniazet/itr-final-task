@@ -41,4 +41,17 @@ router.post(routes.updateUserBlockStatus, async (req, res) => {
     res.status(200).json(user);
 });
 
+router.post(routes.deleteUser, async (req, res) => {
+    const { userId } = req.body;
+    const user = await model.users.findByPk(userId);
+
+    if (!user) {
+        return res.status(500).json({ error: { message: EErrorMessages.USER_NOT_FOUND } });
+    }
+
+    await user.destroy();
+
+    res.status(200).json(user);
+});
+
 export { router };
