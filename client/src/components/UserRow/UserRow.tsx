@@ -3,12 +3,29 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { TUserRowProps } from './UserRow.types';
 import { ERoles, EUserBlockStatuses } from 'enums/index';
 
-export const UserRow = ({ user, onRoleChange, onUserBlock, onUserDelete }: TUserRowProps) => {
+export const UserRow = ({
+    user,
+    onRoleChange,
+    onUserBlock,
+    onUserDelete,
+    onClickUser,
+}: TUserRowProps) => {
     const theme = useTheme();
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', p: 1 }}>
-            <Typography variant="h6" sx={{ flex: 1, color: theme.palette.text.primary }}>
+            <Typography
+                variant="h6"
+                sx={{
+                    flex: 1,
+                    color: theme.palette.text.primary,
+                    cursor: 'pointer',
+                    '&:hover': {
+                        color: theme.palette.primary.main,
+                    },
+                }}
+                onClick={() => onClickUser(user.id)}
+            >
                 {user.id}
             </Typography>
             <Typography sx={{ flex: 1, color: theme.palette.text.primary }}>{user.name}</Typography>
@@ -29,7 +46,12 @@ export const UserRow = ({ user, onRoleChange, onUserBlock, onUserDelete }: TUser
             <Button onClick={() => onUserBlock(user)} sx={{ flex: 1 }}>
                 {user.isBlocked ? EUserBlockStatuses.UNBLOCK : EUserBlockStatuses.BLOCK}
             </Button>
-            <DeleteIcon onClick={() => {onUserDelete(user)}} sx={{color: theme.palette.text.secondary}}/>
+            <DeleteIcon
+                onClick={() => {
+                    onUserDelete(user);
+                }}
+                sx={{ color: theme.palette.text.secondary }}
+            />
         </Box>
     );
 };

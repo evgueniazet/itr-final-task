@@ -15,6 +15,17 @@ router.get(routes.allUsers, async (req, res) => {
     res.json(usersList);
 });
 
+router.get(routes.user, async (req, res) => {
+    const { userId } = req.query;
+    const user = await model.users.findByPk(userId);
+
+    if (!user) {
+        return res.status(500).json({ error: { message: EErrorMessages.USER_NOT_FOUND } });
+    }
+
+    res.status(200).json(user);
+});
+
 router.post(routes.updateUserRole, async (req, res) => {
     const { userId, newRole } = req.body;
     const user = await model.users.findByPk(userId);

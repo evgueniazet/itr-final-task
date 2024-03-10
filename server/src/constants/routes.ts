@@ -3,4 +3,7 @@ export const routes = {
     updateUserRole: '/update-user-role',
     updateUserBlockStatus: '/update-user-block-status',
     deleteUser: '/delete-user',
+    user: '/user',
+    allCollections: '/all-collections',
+    itemInCollection: '/item-in-collection',
 };

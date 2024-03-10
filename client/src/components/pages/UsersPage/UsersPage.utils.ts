@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRouter, usePathname } from 'next/navigation';
 import { TUser } from 'types/TUser';
 import { ERoles } from 'enums/ERoles';
+import { getLanguageFromUrl } from 'utils/getLanguageFromUrl';
 
 export const useGetUsersData = () => {
     const [showLoader, setShowLoader] = useState(false);
     const [users, setUsers] = useState<TUser[] | undefined>();
+    const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
         setShowLoader(true);
@@ -88,5 +92,38 @@ export const useGetUsersData = () => {
             });
     };
 
-    return { users, showLoader, handleUserBlock, handleChangeRole, handleUserDelete };
+    const handleClickUser = (id: number) => {
+        const language = getLanguageFromUrl(pathname);
+        const newUrl = `/${language}/user?userId=${id}`;
+
+        router.push(newUrl);
+    };
+
+    const getUserData = (id: number) => {
+        setShowLoader(true);
+
+        return new Promise((resolve) => {
+            axios
+                .get('http://localhost:3001/users/user', { params: { userId: id } })
+                .then((response) => {
+                    resolve(response.data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                })
+                .finally(() => {
+                    setShowLoader(false);
+                });
+        });
+    };
+
+    return {
+        users,
+        showLoader,
+        handleUserBlock,
+        handleChangeRole,
+        handleUserDelete,
+        handleClickUser,
+        getUserData,
+    };
 };

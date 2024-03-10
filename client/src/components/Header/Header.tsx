@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ELanguages } from 'enums/ELanguages';
+import { getLanguageFromUrl } from 'utils/getLanguageFromUrl';
 
 export const Header: React.FC = () => {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -18,16 +19,15 @@ export const Header: React.FC = () => {
     const pathname = usePathname();
     const query = useSearchParams();
 
-    const match = pathname.match(/^\/(en|ru)(\/|$)/);
-    const language = match ? match[1] : '';
+    const language = getLanguageFromUrl(pathname);
 
     const handleLogin = () => {
-        router.push('/signin');
+        router.push(`/${language}/signin`);
         setIsLoggedIn(true);
     };
 
     const handleSignUp = () => {
-        router.push('/signup');
+        router.push(`/${language}/signup`);
     };
 
     const handleLogout = () => {

@@ -4,14 +4,21 @@ import { Typography, Box, CircularProgress, Backdrop, useTheme } from '@mui/mate
 import { useTranslations } from 'next-intl';
 import { UserRow } from 'components/UserRow';
 import { TUser } from 'types/TUser';
-import { useGetUsersData } from './UserPage.utils';
+import { useGetUsersData } from './UsersPage.utils';
 
 const COLUMN_TITLES = ['ID', 'Name', 'Surname', 'Email', 'Role', 'Block'];
 
 export const UsersPage = () => {
     const theme = useTheme();
     const t = useTranslations('Index');
-    const { users, showLoader, handleUserBlock, handleChangeRole, handleUserDelete } = useGetUsersData();  
+    const {
+        users,
+        showLoader,
+        handleUserBlock,
+        handleChangeRole,
+        handleUserDelete,
+        handleClickUser,
+    } = useGetUsersData();
 
     return (
         <>
@@ -43,6 +50,7 @@ export const UsersPage = () => {
                     onRoleChange={handleChangeRole}
                     onUserBlock={() => handleUserBlock(user, users)}
                     onUserDelete={() => handleUserDelete(user)}
+                    onClickUser={() => handleClickUser(user.id)}
                 />
             ))}
             <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open={showLoader}>

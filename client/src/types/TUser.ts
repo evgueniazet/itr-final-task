@@ -8,5 +8,5 @@ export type TUser = {
     email: string;
     role: ERoles;
     isBlocked: boolean;
-    collections: ICollection[];
+    collections?: ICollection[];
 };

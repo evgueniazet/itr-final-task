@@ -6,4 +6,5 @@ export type TUserRowProps = {
     onRoleChange: (user: TUser, role: ERoles) => void;
     onUserBlock: (user: TUser) => void;
     onUserDelete: (user: TUser) => void;
+    onClickUser: (id: number) => void;
 };
