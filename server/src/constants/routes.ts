@@ -6,4 +6,5 @@ export const routes = {
     user: '/user',
     allCollections: '/all-collections',
     itemInCollection: '/item-in-collection',
+    createCollection: '/create-collection',
 };
