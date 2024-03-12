@@ -1,5 +1,11 @@
 {
     "Index": {
-        "test": "Test"
+        "test": "Test",
+        "userPageTitle": "User page",
+        "userName": "Name",
+        "userSurname": "Surname",
+        "userId": "ID",
+        "userEmail": "Email",
+        "userRole": "Role"
     }
 }

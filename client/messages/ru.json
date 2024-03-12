@@ -1,5 +1,11 @@
 {
     "Index": {
-        "test": "Тест"
+        "test": "Тест",
+        "userPageTitle": "Страница пользователя",
+        "userName": "Имя",
+        "userSurname": "Фамилия",
+        "userId": "ID",
+        "userEmail": "Почта",
+        "userRole": "Роль"
     }
 }

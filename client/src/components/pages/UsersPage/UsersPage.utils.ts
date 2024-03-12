@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouter, usePathname } from 'next/navigation';
 import { TUser } from 'types/TUser';
 import { ERoles } from 'enums/ERoles';
-import { getLanguageFromUrl } from 'utils/getLanguageFromUrl';
 
-export const useGetUsersData = () => {
+export const useUsers = () => {
     const [showLoader, setShowLoader] = useState(false);
     const [users, setUsers] = useState<TUser[] | undefined>();
-    const router = useRouter();
-    const pathname = usePathname();
 
     useEffect(() => {
         setShowLoader(true);
@@ -92,13 +88,6 @@ export const useGetUsersData = () => {
             });
     };
 
-    const handleClickUser = (id: number) => {
-        const language = getLanguageFromUrl(pathname);
-        const newUrl = `/${language}/user?userId=${id}`;
-
-        router.push(newUrl);
-    };
-
     const getUserData = (id: number) => {
         setShowLoader(true);
 
@@ -123,7 +112,6 @@ export const useGetUsersData = () => {
         handleUserBlock,
         handleChangeRole,
         handleUserDelete,
-        handleClickUser,
         getUserData,
     };
 };

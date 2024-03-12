@@ -2,23 +2,27 @@
 
 import { Typography, Box, CircularProgress, Backdrop, useTheme } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
 import { UserRow } from 'components/UserRow';
 import { TUser } from 'types/TUser';
-import { useGetUsersData } from './UsersPage.utils';
+import { useUsers } from './UsersPage.utils';
+import { getLanguageFromUrl } from 'utils/getLanguageFromUrl';
 
 const COLUMN_TITLES = ['ID', 'Name', 'Surname', 'Email', 'Role', 'Block'];
 
 export const UsersPage = () => {
     const theme = useTheme();
     const t = useTranslations('Index');
-    const {
-        users,
-        showLoader,
-        handleUserBlock,
-        handleChangeRole,
-        handleUserDelete,
-        handleClickUser,
-    } = useGetUsersData();
+    const { users, showLoader, handleUserBlock, handleChangeRole, handleUserDelete } = useUsers();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const handleClickUser = (id: number) => {
+        const language = getLanguageFromUrl(pathname);
+        const newUrl = `/${language}/user?userId=${id}`;
+
+        router.push(newUrl);
+    };
 
     return (
         <>
