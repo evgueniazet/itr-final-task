@@ -34,4 +34,21 @@ router.post(routes.createCollection, async (req, res) => {
     res.status(201).json(newCollection);
 });
 
+
+router.post(routes.deleteCollection, async (req, res) => {
+
+    const { collectionId } = req.body;
+
+    const collection = await model.collections.findByPk(collectionId);
+
+    if (!collection) {
+        return res.status(500).json({ error: { message: EErrorMessages.COLLECTION_NOT_FOUND } });
+    }
+
+    await collection.destroy();
+
+    res.status(200).json(collection);
+
+});
+
 export { router };
