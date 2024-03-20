@@ -1,3 +1,5 @@
+export { ICategory } from './ICategory';
+export { ICategoryModel } from './ICategoryModel';
 export { ICollection } from './ICollection';
 export { ICollectionItemModel } from './ICollectionItemModel';
 export { IDbConfig } from './IDbConfig';

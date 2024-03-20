@@ -1,4 +1,4 @@
-const itemInCollectionModel = (sequelize: any, DataTypes: any) => {
+export default (sequelize: any, DataTypes: any) => {
     const itemInCollection = sequelize.define('item-in-collection', {
         title: {
             type: DataTypes.STRING,
@@ -32,5 +32,3 @@ const itemInCollectionModel = (sequelize: any, DataTypes: any) => {
 
     return itemInCollection;
 };
-
-export default itemInCollectionModel;
