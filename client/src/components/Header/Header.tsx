@@ -41,6 +41,10 @@ export const Header: React.FC = () => {
         router.push(newURL);
     };
 
+    const handleUsers = () => {
+        router.push(`/${language}/users     `);
+    };
+
     return (
         <AppBar position="sticky" sx={{ flexGrow: 1, backgroundColor: theme.palette.primary.dark }}>
             <Toolbar>
@@ -58,6 +62,9 @@ export const Header: React.FC = () => {
                         </Button>
                     </>
                 )}
+                <Button color="inherit" onClick={handleUsers}>
+                    Users
+                </Button>
                 <Select
                     value={language}
                     onChange={handleChangeLanguage}

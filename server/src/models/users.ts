@@ -18,11 +18,6 @@ export default (sequelize: any, DataTypes: any) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
         },
-        code: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
     });
 
     users.associate = (models: any) => {
