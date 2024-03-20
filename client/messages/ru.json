@@ -1,11 +1,23 @@
 {
-    "Index": {
-        "test": "Тест",
-        "userPageTitle": "Страница пользователя",
-        "userName": "Имя",
-        "userSurname": "Фамилия",
-        "userId": "ID",
-        "userEmail": "Почта",
-        "userRole": "Роль"
+    "UsersPage": {
+        "title": "Пользователи"
+    },
+    "UserPage": {
+        "title": "Страница пользователя",
+        "userInfoTitle": "Личная информация пользователя",
+        "collectionsTitle": "Коллекции пользователя",
+        "name": "Имя: ",
+        "surname": "Фамилия: ",
+        "id": "ID: ",
+        "email": "Почта: ",
+        "role": "Роль: ",
+        "createCollectionButton": "Создать новую коллекцию"
+    },
+    "ModalWindowCollection": {
+      "createCollectionTitle": "Создать новую коллекцию",
+      "createCollectionButton": "Создать коллекцию",
+      "collectionTitle": "Название коллекции",
+      "collectionDescription": "Описание коллекции",
+      "collectionCategory": "Категория коллекции"
     }
 }

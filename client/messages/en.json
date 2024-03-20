@@ -1,11 +1,23 @@
 {
-    "Index": {
-        "test": "Test",
-        "userPageTitle": "User page",
-        "userName": "Name",
-        "userSurname": "Surname",
-        "userId": "ID",
-        "userEmail": "Email",
-        "userRole": "Role"
-    }
+    "UsersPage": {
+        "title": "Users"
+    },
+    "UserPage": {
+        "title": "User page",
+        "userInfoTitle": "User personal information",
+        "collectionsTitle": "User collections",
+        "name": "Name: ",
+        "surname": "Surname: ",
+        "id": "ID: ",
+        "email": "Email: ",
+        "role": "Role: ",
+        "createCollectionButton": "Create new collection"
+    },
+    "ModalWindowCollection": {
+        "createCollectionTitle": "Create new Collection",
+        "createCollectionButton": "Create collection",
+        "collectionTitle": "Collection name",
+        "collectionDescription": "Collection description",
+        "collectionCategory": "Collection category"
+      }
 }

@@ -1,5 +1,7 @@
 export interface ICollection {
-    id: number;
+    id?: number;
     title: string;
-    userId: string
+    userId: string;
+    description: string;
+    category: string;
 }

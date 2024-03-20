@@ -31,7 +31,7 @@ export const UsersPage = () => {
                 gutterBottom
                 sx={{ textAlign: 'center', color: theme.palette.text.primary, mt: 2.5 }}
             >
-                Users {t('test')}
+                {t('title')}
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', p: 1 }}>
                 {COLUMN_TITLES.map((title, index) => (
