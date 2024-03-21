@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
     AppBar,
     Toolbar,
@@ -12,8 +12,8 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ELanguages } from 'enums/ELanguages';
 import { getLanguageFromUrl } from 'utils/getLanguageFromUrl';
 
-export const Header: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+export const Header = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const theme = useTheme();
     const router = useRouter();
     const pathname = usePathname();

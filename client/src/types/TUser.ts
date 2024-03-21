@@ -1,5 +1,5 @@
 import { ERoles } from 'enums/ERoles';
-import { ICollection } from 'src/interfaces';
+import { TCollection } from './TCollection';
 
 export type TUser = {
     id: number;
@@ -8,5 +8,5 @@ export type TUser = {
     email: string;
     role: ERoles;
     isBlocked: boolean;
-    collections?: ICollection[];
+    collections?: TCollection[];
 };

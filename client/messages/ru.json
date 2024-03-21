@@ -14,10 +14,21 @@
         "createCollectionButton": "Создать новую коллекцию"
     },
     "ModalWindowCollection": {
-      "createCollectionTitle": "Создать новую коллекцию",
-      "createCollectionButton": "Создать коллекцию",
-      "collectionTitle": "Название коллекции",
-      "collectionDescription": "Описание коллекции",
-      "collectionCategory": "Категория коллекции"
+        "createCollectionTitle": "Создать новую коллекцию",
+        "createCollectionButton": "Создать коллекцию",
+        "collectionTitle": "Название коллекции",
+        "collectionDescription": "Описание коллекции",
+        "collectionCategory": "Категория коллекции"
+    },
+    "customFieldEditor": {
+        "addCustomField": "Добавить кастомное поле",
+        "fieldTitle":"Название",
+        "dateTimeField": "Дата/Время",
+        "logicalField": "Логическое",
+        "numericField": "Числовое",
+        "stringField": "Строковое",
+        "textField": "Текстовое",
+        "addButton": "Добавить",
+        "customFieldsList": "Список кастомных полей: "
     }
 }

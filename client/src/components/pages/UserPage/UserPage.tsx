@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Container, Typography, Box, Button, IconButton } from '@mui/material';
 import { useTranslations } from 'next-intl';
-import { useUser } from './UserPage.utils';
-import { ICollection } from 'src/interfaces';
+import { Container, Typography, Box, Button, IconButton } from '@mui/material';
 import { Delete, Edit, Add } from '@mui/icons-material';
+import { useUser } from './UserPage.utils';
 import { ModalWindowCollection } from '../../ModalWindowCollection';
+import { TCollection } from 'types/TCollection';
 
 export const UserPage = () => {
     const searchParams = useSearchParams();
@@ -18,8 +18,7 @@ export const UserPage = () => {
     const collections = useGetUserCollections(userId);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleEditCollection = (collectionId: number) => {
-    };
+    const handleEditCollection = (collectionId: number) => {};
 
     const handleDeleteCollection = (collectionId: number) => {
         deleteCollection(collectionId);
@@ -100,7 +99,7 @@ export const UserPage = () => {
                             </Typography>
                             <Container>
                                 {collections &&
-                                    collections.map((collection: ICollection) => (
+                                    collections.map((collection: TCollection) => (
                                         <Box
                                             key={collection.id}
                                             sx={{
@@ -147,7 +146,11 @@ export const UserPage = () => {
                     </Box>
                 )}
             </Container>
-            <ModalWindowCollection userId={userId} isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
+            <ModalWindowCollection
+                userId={userId}
+                isModalOpen={isModalOpen}
+                handleCloseModal={handleCloseModal}
+            />
         </Box>
     );
 };

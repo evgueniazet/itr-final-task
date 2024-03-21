@@ -1,7 +1,7 @@
 import express from 'express';
 import model from 'models';
 import { routes } from '../constants/routes';
-import { ICollectionItemModel } from '../interfaces';
+import { TCollectionItemModel } from '../types';
 import { EErrorMessages } from 'enums';
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 router.get(routes.itemInCollection, async (req, res) => {
     const { collectionId, itemId } = req.params;
 
-    const itemInCollection: ICollectionItemModel | null = await model.itemInCollection.findOne({
+    const itemInCollection: TCollectionItemModel | null = await model.itemInCollection.findOne({
         where: { collectionId, id: itemId },
     });
 

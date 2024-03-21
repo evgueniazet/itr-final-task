@@ -1,6 +1,6 @@
 import { Dialect } from 'sequelize';
 
-export interface IDbConfigItem {
+export type TDbConfigItem = {
     username: string;
     password: string;
     database: string;

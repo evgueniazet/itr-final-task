@@ -19,5 +19,16 @@
         "collectionTitle": "Collection name",
         "collectionDescription": "Collection description",
         "collectionCategory": "Collection category"
-      }
+    },
+    "customFieldEditor": {
+        "addCustomField": "Add custom field",
+        "fieldTitle":"Title",
+        "dateTimeField": "Date/Time",
+        "logicalField": "Logical",
+        "numericField": "Numeric",
+        "stringField": "String",
+        "textField": "Text",
+        "addButton": "Add",
+        "customFieldsList": "List of custom fields:"
+    }
 }

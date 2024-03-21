@@ -1,4 +1,4 @@
-export interface IItemInCollection {
+export type TItemInCollection = {
     id: number;
     title: string;
     tags: string[];

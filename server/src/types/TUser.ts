@@ -1,6 +1,6 @@
 import { ERoles } from 'enums/ERoles';
 
-export interface IUser {
+export type TUser = {
     id: number;
     name: string;
     surname: string;

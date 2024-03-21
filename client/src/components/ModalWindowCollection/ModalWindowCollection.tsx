@@ -16,15 +16,19 @@ import { Close } from '@mui/icons-material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { useTranslations } from 'next-intl';
 import { getCategories } from 'utils/getCategories';
-import { ICollection } from 'src/interfaces';
-import { TModalWindowCollection } from './ModalWindowCollection.types';
+import { CustomFieldEditor } from 'components/CustomFieldEditor';
+import {
+    TCustomField,
+    TCreateCollection,
+    TModalWindowCollectionProps,
+} from './ModalWindowCollection.types';
 
-export const ModalWindowCollection: React.FC<TModalWindowCollection> = ({
+export const ModalWindowCollection = ({
     userId,
     isModalOpen,
     handleCloseModal,
-}) => {
-    const initialCollectionData: ICollection = {
+}: TModalWindowCollectionProps) => {
+    const initialCollectionData: TCreateCollection = {
         title: '',
         userId: userId,
         description: '',
@@ -33,9 +37,10 @@ export const ModalWindowCollection: React.FC<TModalWindowCollection> = ({
 
     const t = useTranslations('ModalWindowCollection');
     const theme = useTheme();
-    const [collectionData, setCollectionData] = useState<ICollection>(initialCollectionData);
+    const [collectionData, setCollectionData] = useState<TCreateCollection>(initialCollectionData);
     const categories = getCategories();
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
+    const [customFields, setCustomFields] = useState<TCustomField[]>([]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -57,7 +62,6 @@ export const ModalWindowCollection: React.FC<TModalWindowCollection> = ({
     };
 
     const handleCreateCollection = () => {
-        console.log('collectionData', collectionData);
         setCollectionData(initialCollectionData);
         handleCloseModal();
     };
@@ -77,6 +81,8 @@ export const ModalWindowCollection: React.FC<TModalWindowCollection> = ({
                     bgcolor: theme.palette.background.default,
                     boxShadow: 24,
                     p: 4,
+                    height: '60vh',
+                    overflowY: 'auto',
                 }}
             >
                 <Typography
@@ -123,6 +129,7 @@ export const ModalWindowCollection: React.FC<TModalWindowCollection> = ({
                         })}
                     </Select>
                 </FormControl>
+                <CustomFieldEditor customFields={customFields} setCustomFields={setCustomFields} />
                 <Box sx={{ mt: 2 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <Button

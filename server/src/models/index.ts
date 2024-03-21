@@ -2,11 +2,11 @@ import fs from 'fs';
 import * as path from 'path';
 import { Sequelize, DataTypes } from 'sequelize';
 import dbConfig from 'config/dbConfig';
-import { IDbConfig } from 'interfaces';
+import { TDbConfig } from 'types/index';
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const dataBaseConfig = dbConfig[env as keyof IDbConfig];
+const dataBaseConfig = dbConfig[env as keyof TDbConfig];
 const db: any = {};
 
 const sequelize = new Sequelize(
