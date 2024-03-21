@@ -17,7 +17,7 @@ server.use('/categories', categoriesRouter);
 server.use('/collections', collectionsRouter);
 server.use('/item-in-collection', itemInCollection);
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ alter: true }).then(() => {
     server.listen(appConfig.PORT, () => {
         console.warn(`Server is running on port: http://localhost:${appConfig.PORT}`);
     });

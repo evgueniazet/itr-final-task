@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TUser } from 'types/TUser';
+import { TCollection } from 'types/TCollection';
 
 export const useUser = () => {
     const [user, setUser] = useState<TUser | undefined>();
@@ -52,5 +53,19 @@ export const useUser = () => {
             });
     };
 
-    return { useGetUserData, useGetUserCollections, deleteCollection };
+    const createCollection = (collectionData: TCollection) => {
+        axios
+            .post('http://localhost:3001/collections/create-collection', {
+                ...collectionData,
+            })
+            .then(() => {
+                const updatedCollections = [...collections, collectionData];
+                setCollections(updatedCollections);
+            })
+            .catch((error) => {
+                console.error('Error creating collection', error);
+            });
+    };
+
+    return { useGetUserData, useGetUserCollections, deleteCollection, createCollection };
 };

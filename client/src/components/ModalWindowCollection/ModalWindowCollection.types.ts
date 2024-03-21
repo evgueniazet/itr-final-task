@@ -13,4 +13,9 @@ export type TCustomField = {
     name: string;
 };
 
-export type TCreateCollection = Omit<TCollection, 'id'>;
+export type TRequiredFields = Omit<TCollection, 'id'>;
+
+export type TCategory = {
+    id: number;
+    title: string;
+};

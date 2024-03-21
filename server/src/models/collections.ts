@@ -5,7 +5,7 @@ export default (sequelize: any, DataTypes: any) => {
             allowNull: false,
         },
         categoryId: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         description: {

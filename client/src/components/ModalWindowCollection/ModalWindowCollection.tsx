@@ -19,16 +19,18 @@ import { getCategories } from 'utils/getCategories';
 import { CustomFieldEditor } from 'components/CustomFieldEditor';
 import {
     TCustomField,
-    TCreateCollection,
+    TRequiredFields,
     TModalWindowCollectionProps,
 } from './ModalWindowCollection.types';
+import { createCollectionData } from './ModalWindowCollection.utils';
+import { useUser } from 'components/pages/UserPage/UserPage.utils';
 
 export const ModalWindowCollection = ({
     userId,
     isModalOpen,
     handleCloseModal,
 }: TModalWindowCollectionProps) => {
-    const initialCollectionData: TCreateCollection = {
+    const initialCollectionData: TRequiredFields = {
         title: '',
         userId: userId,
         description: '',
@@ -37,38 +39,41 @@ export const ModalWindowCollection = ({
 
     const t = useTranslations('ModalWindowCollection');
     const theme = useTheme();
-    const [collectionData, setCollectionData] = useState<TCreateCollection>(initialCollectionData);
+    const [requiredFields, setRequiredFields] = useState<TRequiredFields>(initialCollectionData);
     const categories = getCategories();
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [customFields, setCustomFields] = useState<TCustomField[]>([]);
+    const { createCollection } = useUser();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setCollectionData((prevData) => ({
+        setRequiredFields((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
     const handleCategoryChange = (e: SelectChangeEvent<string>) => {
-        setCollectionData((prevData) => ({
+        setRequiredFields((prevData) => ({
             ...prevData,
             category: e.target.value,
         }));
     };
 
     const canSubmitForm = () => {
-        return collectionData.title && collectionData.description && collectionData.category;
+        return requiredFields.title && requiredFields.description && requiredFields.category;
     };
 
     const handleCreateCollection = () => {
-        setCollectionData(initialCollectionData);
+        const collectionData = createCollectionData(categories, customFields, requiredFields);
+        createCollection(collectionData);
+        setRequiredFields(initialCollectionData);
         handleCloseModal();
     };
 
     useEffect(() => {
         setIsDisabled(!canSubmitForm());
-    }, [collectionData]);
+    }, [requiredFields]);
 
     return (
         <Modal open={isModalOpen} onClose={handleCloseModal}>
@@ -96,7 +101,7 @@ export const ModalWindowCollection = ({
                     sx={{ mt: 2 }}
                     label={t('collectionTitle')}
                     name="title"
-                    value={collectionData.title}
+                    value={requiredFields.title}
                     onChange={handleInputChange}
                     fullWidth
                     required
@@ -105,7 +110,7 @@ export const ModalWindowCollection = ({
                     sx={{ mt: 2 }}
                     label={t('collectionDescription')}
                     name="description"
-                    value={collectionData.description}
+                    value={requiredFields.description}
                     onChange={handleInputChange}
                     fullWidth
                     required
@@ -116,7 +121,7 @@ export const ModalWindowCollection = ({
                     </InputLabel>
                     <Select
                         labelId="collection-category-label"
-                        value={collectionData.category}
+                        value={requiredFields.category}
                         onChange={handleCategoryChange}
                         required
                     >
