@@ -16,6 +16,7 @@
         "@mui/icons-material": "^5.15.12",
         "@mui/material": "^5.15.11",
         "axios": "^1.6.7",
+        "dropbox": "^10.34.0",
         "formik": "^2.4.5",
         "next": "^14.1.0",
         "next-intl": "^3.9.2",

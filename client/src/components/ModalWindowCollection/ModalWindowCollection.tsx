@@ -24,6 +24,7 @@ import {
 } from './ModalWindowCollection.types';
 import { createCollectionData } from './ModalWindowCollection.utils';
 import { useUser } from 'components/pages/UserPage/UserPage.utils';
+import { uploadImageToDropbox } from 'utils/uploadImageToDropbox';
 
 export const ModalWindowCollection = ({
     userId,
@@ -44,6 +45,7 @@ export const ModalWindowCollection = ({
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [customFields, setCustomFields] = useState<TCustomField[]>([]);
     const { createCollection } = useUser();
+    const [image, setImage] = useState<string>();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -64,17 +66,34 @@ export const ModalWindowCollection = ({
         return requiredFields.title && requiredFields.description && requiredFields.category;
     };
 
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onloadend = async () => {
+            if (reader.result instanceof ArrayBuffer) {
+                const imageContent = reader.result;
+                const imageUrl = await uploadImageToDropbox(imageContent, file.name);
+                setImage(imageUrl);
+            }
+        };
+
+        reader.readAsArrayBuffer(file);
+    };
+
     const handleCreateCollection = () => {
-        const collectionData = createCollectionData(categories, customFields, requiredFields);
+        const collectionData = createCollectionData(
+            categories,
+            customFields,
+            requiredFields,
+            image,
+        );
         createCollection(collectionData);
         setRequiredFields(initialCollectionData);
         handleCloseModal();
-    };
-
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files[0];
-        console.log('file', file);
-        
     };
 
     useEffect(() => {
@@ -125,7 +144,6 @@ export const ModalWindowCollection = ({
                     sx={{ mt: 2 }}
                     type="file"
                     name="image"
-                    value={requiredFields.image}
                     onChange={handleImageUpload}
                     fullWidth
                 />
