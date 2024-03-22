@@ -9,6 +9,7 @@ import { useUser } from './UserPage.utils';
 import { ModalWindowCollection } from '../../ModalWindowCollection';
 import { TCollection } from 'types/TCollection';
 import { Image } from 'components/Image';
+import { MarkdownEditor } from 'components/MarkdownEditor';
 
 export const UserPage = () => {
     const searchParams = useSearchParams();
@@ -114,8 +115,12 @@ export const UserPage = () => {
                                                     Collection name:{collection.title}
                                                 </Typography>
                                                 <Typography variant="subtitle1">
-                                                    Collection description:{collection.description}
+                                                    Collection category:{collection.category}
                                                 </Typography>
+                                                Collection description
+                                                <MarkdownEditor
+                                                    markdownText={collection.description}
+                                                ></MarkdownEditor>
                                             </Container>
 
                                             <Image imageUrl={collection.image}></Image>
