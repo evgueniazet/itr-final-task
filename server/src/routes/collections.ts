@@ -11,7 +11,7 @@ router.get(routes.allCollections, async (req, res) => {
 
     const collectionsListData: TCollectionItemModel[] = await model.collections.findAll({
         where: { userId },
-        attributes: ['id', 'title', 'userId'],
+        attributes: ['id', 'title', 'userId', 'description', 'image'],
     });
 
     const collectionsList: TCollection[] = collectionsListData.map((item) => item.dataValues);

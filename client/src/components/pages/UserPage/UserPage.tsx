@@ -8,6 +8,7 @@ import { Delete, Edit, Add } from '@mui/icons-material';
 import { useUser } from './UserPage.utils';
 import { ModalWindowCollection } from '../../ModalWindowCollection';
 import { TCollection } from 'types/TCollection';
+import { Image } from 'components/Image';
 
 export const UserPage = () => {
     const searchParams = useSearchParams();
@@ -108,9 +109,16 @@ export const UserPage = () => {
                                                 justifyContent: 'space-between',
                                             }}
                                         >
-                                            <Typography variant="subtitle1">
-                                                {collection.title}
-                                            </Typography>
+                                            <Container>
+                                                <Typography variant="subtitle1">
+                                                    Collection name:{collection.title}
+                                                </Typography>
+                                                <Typography variant="subtitle1">
+                                                    Collection description:{collection.description}
+                                                </Typography>
+                                            </Container>
+
+                                            <Image imageUrl={collection.image}></Image>
                                             <Box>
                                                 <IconButton
                                                     onClick={() =>
