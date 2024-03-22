@@ -12,7 +12,7 @@ const COLUMN_TITLES = ['ID', 'Name', 'Surname', 'Email', 'Role', 'Block'];
 
 export const UsersPage = () => {
     const theme = useTheme();
-    const t = useTranslations('Index');
+    const t = useTranslations('UsersPage');
     const { users, showLoader, handleUserBlock, handleChangeRole, handleUserDelete } = useUsers();
     const router = useRouter();
     const pathname = usePathname();

@@ -5,10 +5,17 @@ import { createTheme, ThemeProvider as ThemeProviderBase } from '@mui/material/s
 
 const theme = createTheme({
     palette: {
-        mode: 'light',
+        primary: {
+            main: '#222',
+            contrastText: '#fff',
+        },
+        secondary: {
+            main: '#fff',
+            contrastText: '#222',
+        },
     },
 });
 
-export const ThemeProvider = ({ children }: PropsWithChildren) => (
-    <ThemeProviderBase theme={theme}>{children}</ThemeProviderBase>
-);
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
+    return <ThemeProviderBase theme={theme}>{children}</ThemeProviderBase>;
+};

@@ -71,6 +71,12 @@ export const ModalWindowCollection = ({
         handleCloseModal();
     };
 
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files[0];
+        console.log('file', file);
+        
+    };
+
     useEffect(() => {
         setIsDisabled(!canSubmitForm());
     }, [requiredFields]);
@@ -114,6 +120,14 @@ export const ModalWindowCollection = ({
                     onChange={handleInputChange}
                     fullWidth
                     required
+                />
+                <TextField
+                    sx={{ mt: 2 }}
+                    type="file"
+                    name="image"
+                    value={requiredFields.image}
+                    onChange={handleImageUpload}
+                    fullWidth
                 />
                 <FormControl fullWidth sx={{ mt: 2 }}>
                     <InputLabel id="collection-category-label">

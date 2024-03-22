@@ -8,7 +8,8 @@
             "providers/*": ["src/providers/*"],
             "types/*": ["src/types/*"],
             "components/*": ["src/components/*"],
-            "utils/*": ["src/utils/*"]
+            "utils/*": ["src/utils/*"],
+            "hooks/*": ["src/hooks/*"]
         },
         "types": ["node"],
         "target": "esnext",

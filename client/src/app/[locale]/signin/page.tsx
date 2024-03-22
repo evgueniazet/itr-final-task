@@ -1,13 +1,12 @@
 'use client';
 
-import React from 'react';
 import { useFormik } from 'formik';
 import { TextField, Button, Grid, Typography, Box, useTheme } from '@mui/material';
 import { signInValidationSchema } from './utils/signInValidationSchema';
+import { useThemeMode } from 'hooks/useThemeMode';
 
 const Login = () => {
     const theme = useTheme();
-
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -18,6 +17,7 @@ const Login = () => {
             console.log(values);
         },
     });
+    const { themeMode } = useThemeMode();
 
     return (
         <Box
@@ -33,7 +33,11 @@ const Login = () => {
                     variant="h4"
                     gutterBottom
                     align="center"
-                    sx={{ color: theme.palette.text.primary }}
+                    sx={{
+                        color: themeMode
+                            ? theme.palette.primary.main
+                            : theme.palette.secondary.main,
+                    }}
                 >
                     Login
                 </Typography>

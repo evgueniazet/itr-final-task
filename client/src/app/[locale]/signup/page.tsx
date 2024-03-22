@@ -4,10 +4,10 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { TextField, Button, Grid, Typography, Box, useTheme } from '@mui/material';
 import { signUpValidationSchema } from './utils/signUpValidationSchema';
+import { useThemeMode } from 'hooks/useThemeMode';
 
 const SignUp = () => {
     const theme = useTheme();
-
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -20,6 +20,7 @@ const SignUp = () => {
             console.log(values);
         },
     });
+    const { themeMode } = useThemeMode();
 
     return (
         <Box
@@ -35,7 +36,11 @@ const SignUp = () => {
                     variant="h4"
                     gutterBottom
                     align="center"
-                    sx={{ color: theme.palette.text.primary }}
+                    sx={{
+                        color: themeMode
+                            ? theme.palette.primary.main
+                            : theme.palette.secondary.main,
+                    }}
                 >
                     Registration
                 </Typography>

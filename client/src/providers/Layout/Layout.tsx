@@ -1,11 +1,19 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { Container, useTheme } from '@mui/material';
 import { Header } from 'components/Header';
 
 export const Layout = ({ children }: PropsWithChildren) => {
     const theme = useTheme();
+
+    useEffect(() => {
+        const themeMode = localStorage.getItem('themeMode');
+
+        if (!themeMode) {
+            localStorage.setItem('themeMode', 'dark');
+        }
+    }, []);
 
     return (
         <Container

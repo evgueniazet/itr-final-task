@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     AppBar,
     Toolbar,
@@ -7,10 +7,13 @@ import {
     Select,
     MenuItem,
     SelectChangeEvent,
+    IconButton,
 } from '@mui/material';
+import { Brightness4 as DarkIcon, Brightness7 as LightIcon } from '@mui/icons-material';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ELanguages } from 'enums/ELanguages';
 import { getLanguageFromUrl } from 'utils/getLanguageFromUrl';
+import { useThemeMode } from 'hooks/useThemeMode';
 
 export const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,7 +21,7 @@ export const Header = () => {
     const router = useRouter();
     const pathname = usePathname();
     const query = useSearchParams();
-
+    const { themeMode, setThemeMode } = useThemeMode();
     const language = getLanguageFromUrl(pathname);
 
     const handleLogin = () => {
@@ -42,11 +45,28 @@ export const Header = () => {
     };
 
     const handleUsers = () => {
-        router.push(`/${language}/users     `);
+        router.push(`/${language}/users`);
+    };
+
+    const toggleTheme = () => {
+        setThemeMode(!themeMode);
+        if (themeMode) {
+            localStorage.setItem('themeMode', 'dark');
+        } else {
+            localStorage.setItem('themeMode', 'light');
+        }
     };
 
     return (
-        <AppBar position="sticky" sx={{ flexGrow: 1, backgroundColor: theme.palette.primary.dark }}>
+        <AppBar
+            position="sticky"
+            sx={{
+                flexGrow: 1,
+                backgroundColor: themeMode
+                    ? theme.palette.primary.main
+                    : theme.palette.secondary.main,
+            }}
+        >
             <Toolbar>
                 {isLoggedIn ? (
                     <Button color="inherit" onClick={handleLogout}>
@@ -54,22 +74,60 @@ export const Header = () => {
                     </Button>
                 ) : (
                     <>
-                        <Button color="inherit" onClick={handleLogin}>
+                        <Button
+                            sx={{
+                                color: themeMode
+                                    ? theme.palette.primary.contrastText
+                                    : theme.palette.secondary.contrastText,
+                            }}
+                            onClick={handleLogin}
+                        >
                             Login
                         </Button>
-                        <Button color="inherit" onClick={handleSignUp} sx={{ marginLeft: 'auto' }}>
+                        <Button
+                            sx={{
+                                marginLeft: 'auto',
+                                color: themeMode
+                                    ? theme.palette.primary.contrastText
+                                    : theme.palette.secondary.contrastText,
+                            }}
+                            onClick={handleSignUp}
+                        >
                             Sign Up
                         </Button>
                     </>
                 )}
-                <Button color="inherit" onClick={handleUsers}>
+                <Button
+                    sx={{
+                        color: themeMode
+                            ? theme.palette.primary.contrastText
+                            : theme.palette.secondary.contrastText,
+                    }}
+                    onClick={handleUsers}
+                >
                     Users
                 </Button>
+                <IconButton
+                    sx={{
+                        ml: 2,
+                        color: themeMode
+                            ? theme.palette.primary.contrastText
+                            : theme.palette.secondary.contrastText,
+                    }}
+                    onClick={toggleTheme}
+                >
+                    {themeMode ? <LightIcon /> : <DarkIcon />}
+                </IconButton>
                 <Select
                     value={language}
                     onChange={handleChangeLanguage}
                     variant="outlined"
-                    sx={{ ml: 2 }}
+                    sx={{
+                        ml: 2,
+                        color: themeMode
+                            ? theme.palette.primary.contrastText
+                            : theme.palette.secondary.contrastText,
+                    }}
                 >
                     <MenuItem value={ELanguages.ENGLISH}>English</MenuItem>
                     <MenuItem value={ELanguages.RUSSIAN}>Русский</MenuItem>
