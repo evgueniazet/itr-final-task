@@ -4,6 +4,7 @@ export type TModalWindowCollectionProps = {
     userId: string;
     isModalOpen: boolean;
     handleCloseModal: () => void;
+    categories: TCategory[];
 };
 
 export type TCustomField = {

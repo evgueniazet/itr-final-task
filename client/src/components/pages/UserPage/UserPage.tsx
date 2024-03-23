@@ -7,9 +7,10 @@ import { Container, Typography, Box, Button, IconButton } from '@mui/material';
 import { Delete, Edit, Add } from '@mui/icons-material';
 import { useUser } from './UserPage.utils';
 import { ModalWindowCollection } from '../../ModalWindowCollection';
-import { TCollection } from 'types/TCollection';
 import { Image } from 'components/Image';
 import { MarkdownEditor } from 'components/MarkdownEditor';
+import { getCategories } from 'utils/getCategories';
+import { TReceivedCollectionData } from './UserPage.types';
 
 export const UserPage = () => {
     const searchParams = useSearchParams();
@@ -19,6 +20,7 @@ export const UserPage = () => {
     const user = useGetUserData(userId);
     const collections = useGetUserCollections(userId);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const categories = getCategories();
 
     const handleEditCollection = (collectionId: number) => {};
 
@@ -101,7 +103,7 @@ export const UserPage = () => {
                             </Typography>
                             <Container>
                                 {collections &&
-                                    collections.map((collection: TCollection) => (
+                                    collections.map((collection: TReceivedCollectionData) => (
                                         <Box
                                             key={collection.id}
                                             sx={{
@@ -115,7 +117,14 @@ export const UserPage = () => {
                                                     Collection name:{collection.title}
                                                 </Typography>
                                                 <Typography variant="subtitle1">
-                                                    Collection category:{collection.category}
+                                                    Collection category:{' '}
+                                                    {
+                                                        categories.find(
+                                                            (item) =>
+                                                                item.id ===
+                                                                Number(collection.categoryId),
+                                                        )?.title
+                                                    }
                                                 </Typography>
                                                 Collection description
                                                 <MarkdownEditor
@@ -163,6 +172,7 @@ export const UserPage = () => {
                 userId={userId}
                 isModalOpen={isModalOpen}
                 handleCloseModal={handleCloseModal}
+                categories={categories}
             />
         </Box>
     );

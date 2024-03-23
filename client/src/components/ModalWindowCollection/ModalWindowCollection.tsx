@@ -29,8 +29,9 @@ import { uploadImageToDropbox } from 'utils/uploadImageToDropbox';
 export const ModalWindowCollection = ({
     userId,
     isModalOpen,
+    categories,
     handleCloseModal,
-}: TModalWindowCollectionProps) => {
+    }: TModalWindowCollectionProps) => {
     const initialCollectionData: TRequiredFields = {
         title: '',
         userId: userId,
@@ -41,7 +42,6 @@ export const ModalWindowCollection = ({
     const t = useTranslations('ModalWindowCollection');
     const theme = useTheme();
     const [requiredFields, setRequiredFields] = useState<TRequiredFields>(initialCollectionData);
-    const categories = getCategories();
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [customFields, setCustomFields] = useState<TCustomField[]>([]);
     const { createCollection } = useUser();

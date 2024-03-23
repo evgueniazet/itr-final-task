@@ -2,7 +2,7 @@ import { Dropbox } from 'dropbox';
 
 const dbx = new Dropbox({
     accessToken:
-        'sl.Bx4Dm1Ej3dwVcigbCJwsBkxNc4wC9t4-ADB1_591y8YbMoqt5rm2_D3AHdRVnQTcxTXZtZj8-EyyrKeLKhC_07WPFZHjnaAQph6gb4EMBfsqIJFX1Yw-Ce4Wm_JxVbl4FnonLefgyubg',
+        'sl.Bx4pBPanHjIFGcnORSelo9ak4POABXnnhPgU2p3Lw4zEm5Pkmbuxo8MyK33RQ2zRZQKA9vmOkSNs8iyaA42kXIg4w5eJnCkqCh8LE_e8AgIyWLj446uKi_9Ur3gisz2aNwBonESqWxU0',
 });
 
 export const uploadImageToDropbox = async (imageContent: ArrayBuffer, imageName: string) => {
