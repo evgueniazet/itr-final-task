@@ -19,7 +19,7 @@ import { CustomFieldEditor } from 'components/CustomFieldEditor';
 import { TCustomField, TModalWindowCollectionProps } from './ModalWindowCollection.types';
 import { createCollectionData } from './ModalWindowCollection.utils';
 import { useUser } from 'components/pages/UserPage/UserPage.utils';
-import { uploadImageToDropbox } from 'utils/uploadImageToDropbox';
+import { uploadImageToCloudinary } from 'utils/uploadImageToCloudinary';
 import { TCollection } from 'types/TCollection';
 
 export const ModalWindowCollection = ({
@@ -75,7 +75,7 @@ export const ModalWindowCollection = ({
         reader.onloadend = async () => {
             if (reader.result instanceof ArrayBuffer) {
                 const imageContent = reader.result;
-                const imageUrl = await uploadImageToDropbox(imageContent, file.name);
+                const imageUrl = await uploadImageToCloudinary(imageContent, file.name);
                 setImage(imageUrl);
             }
         };
