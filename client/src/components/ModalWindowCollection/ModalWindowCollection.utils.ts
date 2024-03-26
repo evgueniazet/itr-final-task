@@ -1,16 +1,17 @@
-import { TCustomField, TRequiredFields, TCategory } from './ModalWindowCollection.types';
+import { TCustomField, TCategory } from './ModalWindowCollection.types';
+import { TCollection } from 'types/TCollection';
 
 export const createCollectionData = (
     categories: TCategory[],
     customFields: TCustomField[],
-    requiredFields: TRequiredFields,
+    requiredFields: TCollection,
     image: string,
 ) => {
-    const categoryId = categories.find((item) => item.title === requiredFields.category).id;
+    const category = categories.find((item) => item.title === requiredFields.category).title;
 
     const collectionData = {
         ...requiredFields,
-        categoryId,
+        category,
         image,
         ...(customFields.length > 0
             ? Object.assign({}, ...customFields.map((field) => ({ [field.fieldName]: field.name })))

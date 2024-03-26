@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Container, Typography, Box, Button, IconButton } from '@mui/material';
@@ -10,19 +10,42 @@ import { ModalWindowCollection } from '../../ModalWindowCollection';
 import { Image } from 'components/Image';
 import { MarkdownEditor } from 'components/MarkdownEditor';
 import { getCategories } from 'utils/getCategories';
-import { TReceivedCollectionData } from './UserPage.types';
+import { TCustomCollection } from 'types/TCustomCollection';
+import { TCollection } from 'types/TCollection';
 
 export const UserPage = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editedCollection, setEditedCollection] = useState<TCollection | null>(null);
+    const [existingCustomFieldsObj, setExistingCustomFields] = useState<TCustomCollection | {}>();
     const searchParams = useSearchParams();
     const userId = searchParams.get('userId');
     const t = useTranslations('UserPage');
     const { useGetUserData, useGetUserCollections, deleteCollection } = useUser();
     const user = useGetUserData(userId);
     const collections = useGetUserCollections(userId);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const categories = getCategories();
 
-    const handleEditCollection = (collectionId: number) => {};
+    const existingCustomFields =
+        collections.length > 0
+            ? collections.map((collection) => {
+                  const customKeysAndValues = Object.entries(collection)
+                      .filter(([key, value]) => key.includes('custom') && value !== null)
+                      .reduce((acc: Record<string, any>, [key, value]) => {
+                          acc[key] = value;
+                          return acc;
+                      }, {});
+
+                  return customKeysAndValues;
+              })
+            : [];
+
+    const handleEditCollection = (collectionId: number, index: number) => {
+        const editedCollection = collections.find((collection) => collection.id === collectionId);
+
+        setEditedCollection(editedCollection);
+        setIsModalOpen(true);
+        setExistingCustomFields(existingCustomFields[index]);
+    };
 
     const handleDeleteCollection = (collectionId: number) => {
         deleteCollection(collectionId);
@@ -102,8 +125,15 @@ export const UserPage = () => {
                                 {t('collectionsTitle')}
                             </Typography>
                             <Container>
-                                {collections &&
-                                    collections.map((collection: TReceivedCollectionData) => (
+                                {collections.length === 0 ? (
+                                    <Typography
+                                        sx={{ textAlign: 'center', mt: 3 }}
+                                        variant="subtitle1"
+                                    >
+                                        {t('noCollectionsMessage')}
+                                    </Typography>
+                                ) : (
+                                    collections.map((collection: TCollection, i: number) => (
                                         <Box
                                             key={collection.id}
                                             sx={{
@@ -114,17 +144,11 @@ export const UserPage = () => {
                                         >
                                             <Container>
                                                 <Typography variant="subtitle1">
-                                                    Collection name:{collection.title}
+                                                    Collection name: {collection.title}
                                                 </Typography>
                                                 <Typography variant="subtitle1">
-                                                    Collection category:{' '}
-                                                    {
-                                                        categories.find(
-                                                            (item) =>
-                                                                item.id ===
-                                                                Number(collection.categoryId),
-                                                        )?.title
-                                                    }
+                                                    Collection category:
+                                                    {collection.category}
                                                 </Typography>
                                                 Collection description
                                                 <MarkdownEditor
@@ -136,7 +160,7 @@ export const UserPage = () => {
                                             <Box>
                                                 <IconButton
                                                     onClick={() =>
-                                                        handleEditCollection(collection.id)
+                                                        handleEditCollection(collection.id, i)
                                                     }
                                                     aria-label="edit"
                                                 >
@@ -152,7 +176,8 @@ export const UserPage = () => {
                                                 </IconButton>
                                             </Box>
                                         </Box>
-                                    ))}
+                                    ))
+                                )}
                             </Container>
 
                             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
@@ -173,6 +198,8 @@ export const UserPage = () => {
                 isModalOpen={isModalOpen}
                 handleCloseModal={handleCloseModal}
                 categories={categories}
+                editedCollection={editedCollection}
+                existingCustomFields={existingCustomFieldsObj}
             />
         </Box>
     );

@@ -67,5 +67,31 @@ export const useUser = () => {
             });
     };
 
-    return { useGetUserData, useGetUserCollections, deleteCollection, createCollection };
+    const updateCollection = (collectionId: number, updatedFields: Partial<TCollection>) => {
+        axios
+            .put(
+                `http://localhost:3001/collections/update-collection/?collectionId=${collectionId}`,
+                updatedFields,
+            )
+            .then(() => {
+                const updatedCollections = collections.map((collection) => {
+                    if (collection.id === collectionId) {
+                        return { ...collection, ...updatedFields };
+                    }
+                    return collection;
+                });
+                setCollections(updatedCollections);
+            })
+            .catch((error) => {
+                console.error('Error updating collection:', error);
+            });
+    };
+
+    return {
+        useGetUserData,
+        useGetUserCollections,
+        deleteCollection,
+        createCollection,
+        updateCollection,
+    };
 };

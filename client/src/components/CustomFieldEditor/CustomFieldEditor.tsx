@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import {
     Button,
@@ -14,17 +14,32 @@ import { Close } from '@mui/icons-material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter';
 import { ECustomFieldsTypes } from 'enums/ECustomFieldsTypes';
-import { getCustomFieldName } from './CustomFieldEditor.utils';
+import { getCustomFieldName, getCustomFieldType } from './CustomFieldEditor.utils';
 import { TCustomFieldEditorProps } from './CustomFieldEditor.types';
 
 const MAX_FIELDS_PER_TYPE = 3;
 
-export const CustomFieldEditor = ({ customFields, setCustomFields }: TCustomFieldEditorProps) => {
+export const CustomFieldEditor = ({
+    customFields,
+    existingCustomFields,
+    setCustomFields,
+}: TCustomFieldEditorProps) => {
     const t = useTranslations('customFieldEditor');
     const [newField, setNewField] = useState<{ type: string; name: string }>({
         type: '',
         name: '',
     });
+
+    const [existingCustomFieldsData, setExistingCustomFieldsData] = useState([]);
+
+    useEffect(() => {
+        if (existingCustomFields) {
+            const existingCustomFieldsArray = Object.entries(existingCustomFields).map(
+                ([key, value]) => ({ title: getCustomFieldType(key), value }),
+            );
+            setExistingCustomFieldsData(existingCustomFieldsArray);
+        }
+    }, [existingCustomFields]);
 
     const handleTypeChange = (event: SelectChangeEvent<string>) => {
         setNewField({ ...newField, type: event.target.value });
@@ -107,7 +122,16 @@ export const CustomFieldEditor = ({ customFields, setCustomFields }: TCustomFiel
                     {t('addButton')}
                 </Button>
             </Box>
-
+            <Box>
+                {existingCustomFieldsData.length > 0 &&
+                    existingCustomFieldsData.map(({ title, value }) => {
+                        return (
+                            <Typography key={title}>
+                                {title}: {value}
+                            </Typography>
+                        );
+                    })}
+            </Box>
             {customFields.length > 0 && (
                 <Box>
                     <Typography sx={{ mt: 1 }} variant="h6">

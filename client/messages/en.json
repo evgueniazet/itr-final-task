@@ -11,18 +11,18 @@
         "id": "ID: ",
         "email": "Email: ",
         "role": "Role: ",
-        "createCollectionButton": "Create new collection"
+        "createCollectionButton": "Create new collection",
+        "noCollectionsMessage": "No collections have been created yet :("
     },
     "ModalWindowCollection": {
-        "createCollectionTitle": "Create new Collection",
-        "createCollectionButton": "Create collection",
+        "saveCollectionButton": "Save collection",
         "collectionTitle": "Collection name",
         "collectionDescription": "Collection description",
         "collectionCategory": "Collection category"
     },
     "customFieldEditor": {
         "addCustomField": "Add custom field",
-        "fieldTitle":"Title",
+        "fieldTitle": "Title",
         "dateTimeField": "Date/Time",
         "logicalField": "Logical",
         "numericField": "Numeric",

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ECustomFieldsTypes } from 'enums/ECustomFieldsTypes';
 
 export const getCustomFieldName = (type: string, number: number): string => {
@@ -13,4 +14,18 @@ export const getCustomFieldName = (type: string, number: number): string => {
         case ECustomFieldsTypes.TEXT:
             return `custom_text${number}_name`;
     }
+};
+
+export const getCustomFieldType = (fieldName: string): string => {
+    if (fieldName.includes('date')) return 'Date';
+
+    if (fieldName.includes('boolean')) return 'Logical';
+
+    if (fieldName.includes('int')) return 'Numeric';
+
+    if (fieldName.includes('string')) return 'String';
+
+    if (fieldName.includes('text')) return 'Text';
+
+    return '';
 };

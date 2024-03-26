@@ -1,10 +1,13 @@
 import { TCollection } from 'types/TCollection';
+import { TCustomCollection } from 'types/TCustomCollection';
 
 export type TModalWindowCollectionProps = {
     userId: string;
     isModalOpen: boolean;
-    handleCloseModal: () => void;
     categories: TCategory[];
+    existingCustomFields: TCustomCollection | {};
+    editedCollection: TCollection;
+    handleCloseModal: () => void;
 };
 
 export type TCustomField = {
@@ -13,8 +16,6 @@ export type TCustomField = {
     type: string;
     name: string;
 };
-
-export type TRequiredFields = Omit<TCollection, 'id'>;
 
 export type TCategory = {
     id: number;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Typography,
     Box,
@@ -15,24 +15,23 @@ import {
 import { Close } from '@mui/icons-material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { useTranslations } from 'next-intl';
-import { getCategories } from 'utils/getCategories';
 import { CustomFieldEditor } from 'components/CustomFieldEditor';
-import {
-    TCustomField,
-    TRequiredFields,
-    TModalWindowCollectionProps,
-} from './ModalWindowCollection.types';
+import { TCustomField, TModalWindowCollectionProps } from './ModalWindowCollection.types';
 import { createCollectionData } from './ModalWindowCollection.utils';
 import { useUser } from 'components/pages/UserPage/UserPage.utils';
 import { uploadImageToDropbox } from 'utils/uploadImageToDropbox';
+import { TCollection } from 'types/TCollection';
 
 export const ModalWindowCollection = ({
     userId,
     isModalOpen,
     categories,
+    editedCollection,
+    existingCustomFields,
     handleCloseModal,
-    }: TModalWindowCollectionProps) => {
-    const initialCollectionData: TRequiredFields = {
+}: TModalWindowCollectionProps) => {
+    const initialCollectionData: TCollection = {
+        id: 0,
         title: '',
         userId: userId,
         description: '',
@@ -41,10 +40,10 @@ export const ModalWindowCollection = ({
 
     const t = useTranslations('ModalWindowCollection');
     const theme = useTheme();
-    const [requiredFields, setRequiredFields] = useState<TRequiredFields>(initialCollectionData);
+    const [requiredFields, setRequiredFields] = useState<TCollection>(initialCollectionData);
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [customFields, setCustomFields] = useState<TCustomField[]>([]);
-    const { createCollection } = useUser();
+    const { createCollection, updateCollection } = useUser();
     const [image, setImage] = useState<string>();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -84,17 +83,35 @@ export const ModalWindowCollection = ({
         reader.readAsArrayBuffer(file);
     };
 
-    const handleCreateCollection = () => {
+    const handleSaveCollection = () => {
         const collectionData = createCollectionData(
             categories,
             customFields,
             requiredFields,
             image,
         );
-        createCollection(collectionData);
+
+        if (editedCollection) {
+            updateCollection(editedCollection.id, collectionData);
+        } else {
+            createCollection(collectionData);
+        }
+
         setRequiredFields(initialCollectionData);
         handleCloseModal();
     };
+
+    useEffect(() => {
+        if (editedCollection) {
+            setRequiredFields({
+                id: editedCollection.id,
+                title: editedCollection.title,
+                userId: editedCollection.userId,
+                description: editedCollection.description,
+                category: editedCollection.category,
+            });
+        }
+    }, [editedCollection]);
 
     useEffect(() => {
         setIsDisabled(!canSubmitForm());
@@ -115,13 +132,6 @@ export const ModalWindowCollection = ({
                     overflowY: 'auto',
                 }}
             >
-                <Typography
-                    sx={{ display: 'flex', justifyContent: 'center', fontWeight: 600 }}
-                    variant="h6"
-                    component="h2"
-                >
-                    {t('createCollectionTitle')}
-                </Typography>
                 <TextField
                     sx={{ mt: 2 }}
                     label={t('collectionTitle')}
@@ -166,15 +176,19 @@ export const ModalWindowCollection = ({
                         })}
                     </Select>
                 </FormControl>
-                <CustomFieldEditor customFields={customFields} setCustomFields={setCustomFields} />
+                <CustomFieldEditor
+                    existingCustomFields={existingCustomFields}
+                    customFields={customFields}
+                    setCustomFields={setCustomFields}
+                />
                 <Box sx={{ mt: 2 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <Button
                             variant="contained"
-                            onClick={handleCreateCollection}
+                            onClick={handleSaveCollection}
                             disabled={isDisabled}
                         >
-                            {t('createCollectionButton')}
+                            {t('saveCollectionButton')}
                         </Button>
                     </Box>
 

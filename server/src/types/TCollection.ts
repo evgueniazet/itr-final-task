@@ -1,7 +1,7 @@
 export type TCollection = {
     id: number;
     title: string;
-    categoryId: string;
+    category: string;
     description: string;
     userId: string;
     image?: string;
@@ -35,4 +35,4 @@ export type TCollection = {
     custom_date2_name?: string;
     custom_date3_state: boolean;
     custom_date3_name?: string;
-}
+};

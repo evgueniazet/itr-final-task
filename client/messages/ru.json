@@ -11,18 +11,18 @@
         "id": "ID: ",
         "email": "Почта: ",
         "role": "Роль: ",
-        "createCollectionButton": "Создать новую коллекцию"
+        "createCollectionButton": "Создать новую коллекцию",
+        "noCollectionsMessage": "Пока не создано ни одной коллекции :("
     },
     "ModalWindowCollection": {
-        "createCollectionTitle": "Создать новую коллекцию",
-        "createCollectionButton": "Создать коллекцию",
+        "saveCollectionButton": "Сохранить коллекцию",
         "collectionTitle": "Название коллекции",
         "collectionDescription": "Описание коллекции",
         "collectionCategory": "Категория коллекции"
     },
     "customFieldEditor": {
         "addCustomField": "Добавить кастомное поле",
-        "fieldTitle":"Название",
+        "fieldTitle": "Название",
         "dateTimeField": "Дата/Время",
         "logicalField": "Логическое",
         "numericField": "Числовое",
