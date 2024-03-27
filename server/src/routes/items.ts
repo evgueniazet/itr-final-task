@@ -55,4 +55,20 @@ router.post(routes.createItem, async (req, res) => {
     res.status(201).json(newItem);
 });
 
+router.post(routes.deleteItem, async (req, res) => {
+    const { itemId } = req.body;
+
+    const item = await model.items.findByPk(itemId);
+
+    if (!item) {
+        return res
+            .status(500)
+            .json({ error: { message: EErrorMessages.ITEM_IN_COLLECTION_NOT_FOUND } });
+    }
+
+    await item.destroy();
+
+    res.status(200).json(item);
+});
+
 export { router };
