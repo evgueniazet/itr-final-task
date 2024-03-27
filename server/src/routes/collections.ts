@@ -99,4 +99,16 @@ router.put(routes.updateCollection, async (req, res) => {
     res.status(200).json(collection);
 });
 
+router.get(routes.getCollectionById, async (req, res) => {
+    const { collectionId } = req.query;
+
+    const collection = await model.collections.findByPk(collectionId);
+
+    if (!collection) {
+        return res.status(404).json({ error: { message: EErrorMessages.COLLECTION_NOT_FOUND } });
+    }
+
+    res.json(collection);
+});
+
 export { router };

@@ -8,6 +8,7 @@ export const routes = {
     user: '/user',
     allCategories: '/all-categories',
     allCollections: '/all-collections',
+    getCollectionById:'/get-collection-by-id',
     createCollection: '/create-collection',
     updateCollection: '/update-collection',
     deleteCollection: '/delete-collection',
