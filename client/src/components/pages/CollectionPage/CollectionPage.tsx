@@ -11,7 +11,7 @@ import { TItemInCollection } from 'types/TItemInCollection';
 export const CollectionPage = () => {
     const searchParams = useSearchParams();
     const collectionId = searchParams.get('collectionId');
-    const { useGetItemsInCollection, useCreateItemInCollection } = useItemsCollection();
+    const { useGetItemsInCollection, useCreateItemInCollection, useDeleteItemInCollection } = useItemsCollection();
     const items = useGetItemsInCollection(collectionId);
     const [newItemTitle, setNewItemTitle] = useState('');
     const [newItemTags, setNewItemTags] = useState([]);
@@ -21,8 +21,8 @@ export const CollectionPage = () => {
         console.log('edit item');
     };
 
-    const handleDelete = () => {
-        console.log('delete item');
+    const handleDelete = (itemId: number) => {
+        useDeleteItemInCollection(itemId);
     };
 
     const handleCreateItem = () => {

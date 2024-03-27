@@ -35,5 +35,17 @@ export const useItemsCollection = () => {
             });
     };
 
-    return { useGetItemsInCollection, useCreateItemInCollection };
+    const useDeleteItemInCollection = (itemId: number) => {
+        axios
+            .post('http://localhost:3001/items/delete-item', { itemId })
+            .then(() => {
+                const updatedCollections = items.filter((item) => item.id !== itemId);
+                setItems(updatedCollections);
+            })
+            .catch((error) => {
+                console.error('Error deleting item in collection', error);
+            });
+    };
+
+    return { useGetItemsInCollection, useCreateItemInCollection, useDeleteItemInCollection };
 };
