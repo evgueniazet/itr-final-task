@@ -14,4 +14,5 @@ export const routes = {
     allItemsInCollection: '/all-items-in-collection',
     createItem: '/create-item',
     deleteItem: '/delete-item',
+    updateItem: '/update-item',
 };

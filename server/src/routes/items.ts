@@ -71,4 +71,21 @@ router.post(routes.deleteItem, async (req, res) => {
     res.status(200).json(item);
 });
 
+router.put(routes.updateItem, async (req, res) => {
+    const { itemId } = req.query;
+    const updatedFields = req.body;
+
+    const item = await model.items.findByPk(itemId);
+
+    if (!item) {
+        return res
+            .status(404)
+            .json({ error: { message: EErrorMessages.ITEM_IN_COLLECTION_NOT_FOUND } });
+    }
+
+    await item.update(updatedFields);
+
+    res.status(200).json(item);
+});
+
 export { router };
