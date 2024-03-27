@@ -72,7 +72,6 @@ router.post(routes.deleteUser, async (req, res) => {
 
 router.post(routes.register, async (req, res) => {
     const { email, password, name, surname } = req.body;
-    console.log('email', email);
 
     const user = await model.users.findOne({ where: { email } });
 

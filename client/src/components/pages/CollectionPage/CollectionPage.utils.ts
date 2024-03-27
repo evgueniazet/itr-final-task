@@ -1,21 +1,39 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { TItemInCollection } from 'types/TItemInCollection';
 
 export const useItemsCollection = () => {
-    const [items, setItems] = useState();
+    const [items, setItems] = useState([]);
+
     const useGetItemsInCollection = (collectionId: string) => {
-        useEffect(()=> {
-            axios.get('http://localhost:3001/items/all-items-in-collection', {params : {collectionId}})
-                 .then((response) => {
+        useEffect(() => {
+            axios
+                .get('http://localhost:3001/items/all-items-in-collection', {
+                    params: { collectionId },
+                })
+                .then((response) => {
                     setItems(response.data);
-                 })
-                 .catch((error) => {
-                    console.error('Error fetching items in collection:', error)
-                 })
-        },[collectionId]);
+                })
+                .catch((error) => {
+                    console.error('Error fetching items in collection:', error);
+                });
+        }, [collectionId]);
 
         return items;
     };
 
-    return { useGetItemsInCollection };
+    const useCreateItemInCollection = (itemData: TItemInCollection) => {
+        axios
+            .post('http://localhost:3001/items/create-item', { ...itemData })
+            .then((response) => {
+                const newItem = { ...itemData, id: response.data.id };
+                const updatedItems = [...items, newItem];
+                setItems(updatedItems);
+            })
+            .catch((error) => {
+                console.error('Error creating item in collection', error);
+            });
+    };
+
+    return { useGetItemsInCollection, useCreateItemInCollection };
 };

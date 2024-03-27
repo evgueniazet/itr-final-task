@@ -2,7 +2,7 @@ export type TItemInCollection = {
     id: number;
     title: string;
     tags: string[];
-    collectionId: number;
+    collectionId: string;
     custom_int1?: number;
     custom_int2?: number;
     custom_int3?: number;
