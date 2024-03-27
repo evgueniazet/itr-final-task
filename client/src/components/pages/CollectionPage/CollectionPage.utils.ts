@@ -4,6 +4,7 @@ import { TItemInCollection } from 'types/TItemInCollection';
 
 export const useItemsCollection = () => {
     const [items, setItems] = useState([]);
+    const [collection, setCollection] = useState();
 
     const useGetItemsInCollection = (collectionId: string) => {
         useEffect(() => {
@@ -67,10 +68,27 @@ export const useItemsCollection = () => {
             });
     };
 
+    const useGetCollection = (collectionId: string) => {
+        useEffect(() => {
+            axios
+                .get(
+                    `http://localhost:3001/collections/get-collection-by-id/?collectionId=${collectionId}`,
+                )
+                .then((response) => {
+                    setCollection(response.data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching items in collection:', error);
+                });
+        }, []);
+        return collection;
+    };
+
     return {
         useGetItemsInCollection,
         useCreateItemInCollection,
         useDeleteItemInCollection,
         useUpdateItemInCollection,
+        useGetCollection,
     };
 };

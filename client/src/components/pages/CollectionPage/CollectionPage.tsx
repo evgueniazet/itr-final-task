@@ -16,12 +16,15 @@ export const CollectionPage = () => {
         useCreateItemInCollection,
         useDeleteItemInCollection,
         useUpdateItemInCollection,
+        useGetCollection,
     } = useItemsCollection();
     const items = useGetItemsInCollection(collectionId);
     const [newItemTitle, setNewItemTitle] = useState('');
     const [newItemTags, setNewItemTags] = useState([]);
     const [isCreatingNewItem, setIsCreatingNewItem] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
+
+    const collectionData = useGetCollection(collectionId);
 
     const handleEdit = (item: TItemInCollection) => {
         setSelectedItem(item);
@@ -57,7 +60,12 @@ export const CollectionPage = () => {
     return (
         <>
             <h1>Collection Page</h1>
-            <ItemsList items={items} onEdit={handleEdit} onDelete={handleDelete} />
+            <ItemsList
+                items={items}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                collection={collectionData}
+            />
             {isCreatingNewItem || selectedItem ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
                     <TextField

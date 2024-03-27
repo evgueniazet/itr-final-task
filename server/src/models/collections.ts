@@ -20,123 +20,63 @@ export default (sequelize: any, DataTypes: any) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_int1_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_int1_name: {
+        custom_int1: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_int2_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_int2_name: {
+        custom_int2: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_int3_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_int3_name: {
+        custom_int3: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_string1_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_string1_name: {
+        custom_string1: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_string2_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_string2_name: {
+        custom_string2: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_string3_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_string3_name: {
+        custom_string3: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_text1_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_text1_name: {
+        custom_text1: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_text2_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_text2_name: {
+        custom_text2: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_text3_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_text3_name: {
+        custom_text3: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_boolean1_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_boolean1_name: {
+        custom_boolean1: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_boolean2_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_boolean2_name: {
+        custom_boolean2: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_boolean3_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_boolean3_name: {
+        custom_boolean3: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_date1_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_date1_name: {
+        custom_date1: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_date2_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_date2_name: {
+        custom_date2: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        custom_date3_state: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        custom_date3_name: {
+        custom_date3: {
             type: DataTypes.STRING,
             allowNull: true,
         },
