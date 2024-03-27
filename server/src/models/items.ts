@@ -10,19 +10,18 @@ export default (sequelize: any, DataTypes: any) => {
         },
         tags: {
             type: DataTypes.JSON,
-            allowNull: false,
-            defaultValue: [],
-            get(this: { getDataValue: (key: string) => any }, key: string) {
-                const tags = this.getDataValue(key);
-                return tags ? JSON.parse(tags) : [];
-            },
-            set(
-                this: { setDataValue: (key: string, value: any) => void },
-                key: string,
-                value: any,
-            ) {
-                this.setDataValue(key, JSON.stringify(value));
-            },
+            allowNull: true,
+            // get(this: { getDataValue: (key: string) => any }, key: string) {
+            //     const tags = this.getDataValue(key);
+            //     return tags ? JSON.parse(tags) : [];
+            // },
+            // set(
+            //     this: { setDataValue: (key: string, value: any) => void },
+            //     key: string,
+            //     value: any,
+            // ) {
+            //     this.setDataValue(key, JSON.stringify(value));
+            // },
         },
         custom_int1: {
             type: DataTypes.INTEGER,
