@@ -142,5 +142,13 @@ export default (sequelize: any, DataTypes: any) => {
         },
     });
 
+    collections.associate = (models: any) => {
+        collections.hasMany(models.itemInCollection, {
+            foreignKey: 'collectionId',
+            sourceKey: 'id',
+            onDelete: 'cascade',
+        });
+    };
+
     return collections;
 };

@@ -1,4 +1,6 @@
 export const routes = {
+    register: '/register',
+    login: '/login',
     allUsers: '/all-users',
     updateUserRole: '/update-user-role',
     updateUserBlockStatus: '/update-user-block-status',
@@ -6,8 +8,8 @@ export const routes = {
     user: '/user',
     allCategories: '/all-categories',
     allCollections: '/all-collections',
-    itemInCollection: '/item-in-collection',
     createCollection: '/create-collection',
-    updateCollection:'/update-collection',
+    updateCollection: '/update-collection',
     deleteCollection: '/delete-collection',
+    allItemsInCollection: '/all-items-in-collection',
 };

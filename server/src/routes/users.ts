@@ -1,8 +1,13 @@
 import express from 'express';
 import model from 'models';
-import { routes } from '../constants/routes';
-import { TUser, TUserItemModel } from '../types';
-import { EErrorMessages } from 'enums';
+import fs from 'fs';
+import appConfig from 'config/config';
+import { routes } from 'constants/routes';
+import { TUser, TUserItemModel } from 'types';
+import { EErrorMessages, ERoles } from 'enums';
+import { createToken } from 'utils';
+
+const jwtSecretCert = fs.readFileSync(appConfig.JWT_CERT_PATH, 'utf8');
 
 const router = express.Router();
 
@@ -63,6 +68,60 @@ router.post(routes.deleteUser, async (req, res) => {
     await user.destroy();
 
     res.status(200).json(user);
+});
+
+router.post(routes.register, async (req, res) => {
+    const { email, password, name, surname } = req.body;
+    console.log('email', email);
+
+    const user = await model.users.findOne({ where: { email } });
+
+    if (user) {
+        res.status(401).json({
+            errors: { message: EErrorMessages.UNAUTHORIZED_USER_EXIST },
+        });
+    } else {
+        //TODO: add validation of data: email, password, name and surname
+        await model.users.create({
+            email,
+            password,
+            name,
+            surname,
+            role: ERoles.USER,
+            isBlocked: 0,
+        });
+
+        const user = await model.users.findOne({ where: { email } });
+
+        const token = createToken({ email }, appConfig.TOKEN_LIFETIME, jwtSecretCert);
+
+        res.json({ token, user });
+    }
+});
+
+router.post(routes.login, async (req, res) => {
+    const { email, password } = req.body;
+    const user = await model.users.findOne({ where: { email } });
+
+    if (!user) {
+        res.status(401).json({
+            errors: { message: EErrorMessages.UNAUTHORIZED_USER_NOTFOUND },
+        });
+    } else {
+        if (password === user.password) {
+            const token = createToken(
+                { email: user.email },
+                appConfig.TOKEN_LIFETIME,
+                jwtSecretCert,
+            );
+
+            res.json(token);
+        } else {
+            res.status(401).json({
+                errors: { message: EErrorMessages.UNAUTHORIZED_WRONG_CREDENTIALS },
+            });
+        }
+    }
 });
 
 export { router };

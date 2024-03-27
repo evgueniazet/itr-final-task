@@ -1,25 +1,44 @@
 import express from 'express';
 import model from 'models';
 import { routes } from '../constants/routes';
-import { TCollectionItemModel } from '../types';
-import { EErrorMessages } from 'enums';
+import { TItemInCollection, TItemInCollectionModel } from '../types';
 
 const router = express.Router();
 
-router.get(routes.itemInCollection, async (req, res) => {
-    const { collectionId, itemId } = req.params;
+router.get(routes.allItemsInCollection, async (req, res) => {
+    const { collectionId } = req.query;
 
-    const itemInCollection: TCollectionItemModel | null = await model.itemInCollection.findOne({
-        where: { collectionId, id: itemId },
-    });
+    const itemsInCollectionListData: TItemInCollectionModel[] =
+        await model.itemInCollection.findAll({
+            where: { collectionId },
+            attributes: [
+                'id',
+                'title',
+                'tags',
+                'collectionId',
+                'custom_int1',
+                'custom_int2',
+                'custom_int3',
+                'custom_string1',
+                'custom_string2',
+                'custom_string3',
+                'custom_text1',
+                'custom_text2',
+                'custom_text3',
+                'custom_boolean1',
+                'custom_boolean2',
+                'custom_boolean3',
+                'custom_date1',
+                'custom_date2',
+                'custom_date3',
+            ],
+        });
 
-    if (!itemInCollection) {
-        return res
-            .status(500)
-            .json({ error: { message: EErrorMessages.ITEM_IN_COLLECTION_NOT_FOUND } });
-    }
+    const itemsInCollectionList: TItemInCollection[] = itemsInCollectionListData.map(
+        (item) => item.dataValues,
+    );
 
-    res.status(200).json(itemInCollection);
+    res.json(itemsInCollectionList);
 });
 
 export { router };

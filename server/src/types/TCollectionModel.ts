@@ -1,5 +1,5 @@
 import { TCollection } from './TCollection';
 
-export type TCollectionItemModel = {
+export type TCollectionItem = {
     dataValues: TCollection;
 };

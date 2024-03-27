@@ -8,8 +8,6 @@
             "constants/*": ["constants/*"],
             "enums/*": ["enums/*"],
             "interfaces/*": ["interfaces/*"],
-            "middlewares/*": ["middlewares/*"],
-            "migrations/*": ["migrations/*"],
             "models/*": ["models/*"],
             "routes/*": ["routes/*"],
             "types/*": ["types/*"],

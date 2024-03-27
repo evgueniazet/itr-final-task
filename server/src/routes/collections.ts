@@ -1,7 +1,7 @@
 import express from 'express';
 import model from 'models';
 import { routes } from '../constants/routes';
-import { TCollection, TCollectionItemModel } from '../types';
+import { TCollection, TCollectionItem } from '../types';
 import { EErrorMessages } from 'enums/EErrorMessages';
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 router.get(routes.allCollections, async (req, res) => {
     const { userId } = req.query;
 
-    const collectionsListData: TCollectionItemModel[] = await model.collections.findAll({
+    const collectionsListData: TCollectionItem[] = await model.collections.findAll({
         where: { userId },
         attributes: [
             'id',
@@ -63,7 +63,7 @@ router.post(routes.createCollection, async (req, res) => {
         return res.status(400).json(EErrorMessages.NOT_ENOUGH_DATA_TO_CREATE_COLLECTION);
     }
 
-    const newCollection: TCollectionItemModel = await model.collections.create({
+    const newCollection: TCollectionItem = await model.collections.create({
         ...fields,
     });
 

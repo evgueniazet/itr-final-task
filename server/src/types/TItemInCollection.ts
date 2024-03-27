@@ -2,6 +2,7 @@ export type TItemInCollection = {
     id: number;
     title: string;
     tags: string[];
+    collectionId: number;
     custom_int1?: number;
     custom_int2?: number;
     custom_int3?: number;
@@ -17,4 +18,4 @@ export type TItemInCollection = {
     custom_date1?: string;
     custom_date2?: string;
     custom_date3?: string;
-}
+};

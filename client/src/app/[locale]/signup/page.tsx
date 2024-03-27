@@ -3,21 +3,40 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { TextField, Button, Grid, Typography, Box, useTheme } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { signUpValidationSchema } from './utils/signUpValidationSchema';
 import { useThemeMode } from 'hooks/useThemeMode';
+import { api } from 'src/api/axiosSettings';
+import { requestApi } from 'src/api/requests';
+import { usePathname } from 'next/navigation';
+import { getLanguageFromUrl } from 'utils/getLanguageFromUrl';
 
 const SignUp = () => {
+    const router = useRouter();
+    const pathname = usePathname();
+    const language = getLanguageFromUrl(pathname);
     const theme = useTheme();
     const formik = useFormik({
         initialValues: {
             name: '',
+            surname: '',
             email: '',
             password: '',
             confirmPassword: '',
         },
         validationSchema: signUpValidationSchema,
-        onSubmit: (values) => {
-            console.log(values);
+        onSubmit: (data) => {
+            const { email, password, name, surname } = data;
+
+            api(requestApi.register({ email, password, name, surname }))
+                .then((response) => {
+                    localStorage.setItem('Authorization', response.data.token);
+                    router.push(`/${language}/user/?userId=${response.data.user.id}`);
+                })
+                .catch((err) => {
+                    console.error('ERROR', err);
+                    //TODO: user friendly error message
+                });
         },
     });
     const { themeMode } = useThemeMode();
@@ -56,6 +75,18 @@ const SignUp = () => {
                                 onChange={formik.handleChange}
                                 error={formik.touched.name && Boolean(formik.errors.name)}
                                 helperText={formik.touched.name && formik.errors.name}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                id="surname"
+                                name="surname"
+                                label="Surname"
+                                value={formik.values.surname}
+                                onChange={formik.handleChange}
+                                error={formik.touched.surname && Boolean(formik.errors.surname)}
+                                helperText={formik.touched.surname && formik.errors.surname}
                             />
                         </Grid>
                         <Grid item xs={12}>
