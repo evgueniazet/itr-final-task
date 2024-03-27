@@ -11,14 +11,20 @@ import { TItemInCollection } from 'types/TItemInCollection';
 export const CollectionPage = () => {
     const searchParams = useSearchParams();
     const collectionId = searchParams.get('collectionId');
-    const { useGetItemsInCollection, useCreateItemInCollection, useDeleteItemInCollection } = useItemsCollection();
+    const {
+        useGetItemsInCollection,
+        useCreateItemInCollection,
+        useDeleteItemInCollection,
+        useUpdateItemInCollection,
+    } = useItemsCollection();
     const items = useGetItemsInCollection(collectionId);
     const [newItemTitle, setNewItemTitle] = useState('');
     const [newItemTags, setNewItemTags] = useState([]);
     const [isCreatingNewItem, setIsCreatingNewItem] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
 
-    const handleEdit = () => {
-        console.log('edit item');
+    const handleEdit = (item: TItemInCollection) => {
+        setSelectedItem(item);
     };
 
     const handleDelete = (itemId: number) => {
@@ -43,34 +49,61 @@ export const CollectionPage = () => {
         setIsCreatingNewItem(false);
     };
 
+    const handleUpdateItem = async () => {
+        await useUpdateItemInCollection(selectedItem.id, selectedItem);
+        setSelectedItem(null);
+    };
+
     return (
         <>
             <h1>Collection Page</h1>
             <ItemsList items={items} onEdit={handleEdit} onDelete={handleDelete} />
-            {isCreatingNewItem ? (
+            {isCreatingNewItem || selectedItem ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
                     <TextField
-                        label="New Item Title"
-                        value={newItemTitle}
-                        onChange={(e) => setNewItemTitle(e.target.value)}
+                        label="Title"
+                        value={selectedItem ? selectedItem.title : newItemTitle}
+                        onChange={(e) => {
+                            if (selectedItem) {
+                                setSelectedItem({ ...selectedItem, title: e.target.value });
+                            } else {
+                                setNewItemTitle(e.target.value);
+                            }
+                        }}
                         sx={{ mr: 1 }}
                     />
                     <TextField
-                        label="New Item Tags"
-                        value={newItemTags.join(', ')}
-                        onChange={(e) =>
-                            setNewItemTags(e.target.value.split(',').map((tag) => tag.trim()))
-                        }
+                        label="Tags"
+                        value={(selectedItem ? selectedItem.tags : newItemTags).join(', ')}
+                        onChange={(e) => {
+                            const tags = e.target.value.split(',').map((tag) => tag.trim());
+                            if (selectedItem) {
+                                setSelectedItem({ ...selectedItem, tags });
+                            } else {
+                                setNewItemTags(tags);
+                            }
+                        }}
                         sx={{ mr: 1 }}
                     />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<Save />}
-                        onClick={handleSaveNewItem}
-                    >
-                        Save
-                    </Button>
+                    {selectedItem ? (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<Save />}
+                            onClick={handleUpdateItem}
+                        >
+                            Update
+                        </Button>
+                    ) : (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<Save />}
+                            onClick={handleSaveNewItem}
+                        >
+                            Save
+                        </Button>
+                    )}
                 </Box>
             ) : (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>

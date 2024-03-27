@@ -39,13 +39,38 @@ export const useItemsCollection = () => {
         axios
             .post('http://localhost:3001/items/delete-item', { itemId })
             .then(() => {
-                const updatedCollections = items.filter((item) => item.id !== itemId);
-                setItems(updatedCollections);
+                const updatedItems = items.filter((item) => item.id !== itemId);
+                setItems(updatedItems);
             })
             .catch((error) => {
                 console.error('Error deleting item in collection', error);
             });
     };
 
-    return { useGetItemsInCollection, useCreateItemInCollection, useDeleteItemInCollection };
+    const useUpdateItemInCollection = (
+        itemId: number,
+        updatedFields: Partial<TItemInCollection>,
+    ) => {
+        axios
+            .put(`http://localhost:3001/items/update-item/?itemId=${itemId}`, updatedFields)
+            .then(() => {
+                const updatedItems = items.map((item) => {
+                    if (item.id === itemId) {
+                        return { ...item, ...updatedFields };
+                    }
+                    return item;
+                });
+                setItems(updatedItems);
+            })
+            .catch((error) => {
+                console.error('Error editing item in collection', error);
+            });
+    };
+
+    return {
+        useGetItemsInCollection,
+        useCreateItemInCollection,
+        useDeleteItemInCollection,
+        useUpdateItemInCollection,
+    };
 };
