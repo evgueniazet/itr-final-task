@@ -77,6 +77,9 @@ export const CustomFields = ({ collection, item }: any) => {
             const fixedType = type.slice(0, -1);
             const fieldName = collection[key];
 
+            console.log(num,name);
+            
+
             switch (fixedType) {
                 case 'int':
                     customFields.push(renderIntegerField(fieldName, key));

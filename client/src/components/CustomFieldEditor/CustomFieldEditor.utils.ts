@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ECustomFieldsTypes } from 'enums/ECustomFieldsTypes';
 
 export const getCustomFieldName = (type: string, number: number): string => {
