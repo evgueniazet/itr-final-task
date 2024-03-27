@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Container, Typography, Box, Button, IconButton } from '@mui/material';
 import { Delete, Edit, Add } from '@mui/icons-material';
 import { useUser } from './UserPage.utils';
@@ -12,6 +12,7 @@ import { MarkdownEditor } from 'components/MarkdownEditor';
 import { getCategories } from 'utils/getCategories';
 import { TCustomCollection } from 'types/TCustomCollection';
 import { TCollection } from 'types/TCollection';
+import { getLanguageFromUrl } from 'utils/getLanguageFromUrl';
 
 export const UserPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +24,9 @@ export const UserPage = () => {
     const { useGetUserData, useGetUserCollections, deleteCollection } = useUser();
     const user = useGetUserData(userId);
     const collections = useGetUserCollections(userId);
+    const router = useRouter();
     const categories = getCategories();
+    const pathname = usePathname();
 
     const existingCustomFields =
         collections.length > 0
@@ -57,6 +60,12 @@ export const UserPage = () => {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+    };
+
+    const handleCollectionClick = (collectionId: number) => {
+        const language = getLanguageFromUrl(pathname);
+        const newUrl = `/${language}/collection?collectionId=${collectionId}`;
+        router.push(newUrl);
     };
 
     return (
@@ -143,7 +152,12 @@ export const UserPage = () => {
                                             }}
                                         >
                                             <Container>
-                                                <Typography variant="subtitle1">
+                                                <Typography
+                                                    onClick={() => {
+                                                        handleCollectionClick(collection.id);
+                                                    }}
+                                                    variant="subtitle1"
+                                                >
                                                     Collection name: {collection.title}
                                                 </Typography>
                                                 <Typography variant="subtitle1">

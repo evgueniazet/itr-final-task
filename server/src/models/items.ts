@@ -1,5 +1,5 @@
 export default (sequelize: any, DataTypes: any) => {
-    const itemInCollection = sequelize.define('item-in-collection', {
+    const items = sequelize.define('items', {
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -86,5 +86,5 @@ export default (sequelize: any, DataTypes: any) => {
         },
     });
 
-    return itemInCollection;
+    return items;
 };

@@ -9,7 +9,7 @@ router.get(routes.allItemsInCollection, async (req, res) => {
     const { collectionId } = req.query;
 
     const itemsInCollectionListData: TItemInCollectionModel[] =
-        await model.itemInCollection.findAll({
+        await model.items.findAll({
             where: { collectionId },
             attributes: [
                 'id',

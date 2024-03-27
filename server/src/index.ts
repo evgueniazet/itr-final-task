@@ -6,7 +6,7 @@ import db from 'models';
 import { router as usersRouter } from './routes/users';
 import { router as categoriesRouter } from './routes/categories';
 import { router as collectionsRouter } from './routes/collections';
-import { router as itemInCollection } from './routes/itemInCollection';
+import { router as itemsRouter } from './routes/items';
 
 const server = express();
 
@@ -15,7 +15,7 @@ server.use(cors());
 server.use('/users', usersRouter);
 server.use('/categories', categoriesRouter);
 server.use('/collections', collectionsRouter);
-server.use('/item-in-collection', itemInCollection);
+server.use('/items', itemsRouter);
 
 db.sequelize.sync({ alter: true }).then(() => {
     server.listen(appConfig.PORT, () => {
